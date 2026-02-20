@@ -17,7 +17,7 @@ const {
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 ---
 
-<html lang="en" class="bg-paper text-ink">
+<html lang="en" class="scroll-smooth bg-paper text-ink selection:bg-sun selection:text-charcoal">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -42,15 +42,13 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
   </head>
   <body class="bg-paper text-ink antialiased">
     <a class="skip-link" href="#main">Skip to main content</a>
-    <div class="relative min-h-screen overflow-hidden">
-      <div class="pointer-events-none absolute inset-0 opacity-60">
-        <div class="absolute left-[-15%] top-[-10%] h-80 w-80 rounded-full bg-sun/40 blur-3xl"></div>
-        <div class="absolute right-[-10%] top-[10%] h-72 w-72 rounded-full bg-emerald/30 blur-3xl"></div>
-        <div class="absolute bottom-[-15%] right-[25%] h-64 w-64 rounded-full bg-amber/30 blur-[120px]"></div>
-      </div>
-      <div class="relative">
-        <slot />
-      </div>
+    <div class="pointer-events-none fixed inset-0 z-[-1] overflow-hidden opacity-60">
+      <div class="absolute left-[-15%] top-[-10%] h-80 w-80 rounded-full bg-sun/40 blur-3xl"></div>
+      <div class="absolute right-[-10%] top-[10%] h-72 w-72 rounded-full bg-emerald/30 blur-3xl"></div>
+      <div class="absolute bottom-[-15%] right-[25%] h-64 w-64 rounded-full bg-amber/30 blur-[120px]"></div>
+    </div>
+    <div class="relative flex min-h-screen flex-col">
+      <slot />
     </div>
   </body>
 </html>
