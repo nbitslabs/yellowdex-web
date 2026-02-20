@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getLatestRelease } from "../lib/getLatestRelease";
 
 const steps = [
   {
@@ -61,6 +62,8 @@ const faqs = [
     a: "Chrome first. Firefox and Edge are on the roadmap—join the list to be notified.",
   },
 ];
+
+const latestRelease = await getLatestRelease();
 ---
 
 <BaseLayout>
@@ -75,6 +78,7 @@ const faqs = [
       </div>
       <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
         <a href="#features" class="transition hover:text-ink">Features</a>
+        <a href="#release" class="transition hover:text-ink">Release notes</a>
         <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="#faq" class="transition hover:text-ink">FAQ</a>
         <a
@@ -326,6 +330,48 @@ const faqs = [
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="release">
+      <div class="mx-auto max-w-6xl space-y-8">
+        <div class="space-y-3">
+          <p class="pill">Latest release</p>
+          <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Fresh from the Yellowdex extension.</h2>
+          <p class="max-w-2xl text-muted">
+            Release notes are pulled from the Yellowdex extension repo whenever a new version ships. Deploys are automatic when a
+            release is published.
+          </p>
+        </div>
+
+        {latestRelease ? (
+          <div class="card flex flex-col gap-6 p-6 sm:flex-row sm:items-start sm:justify-between">
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center gap-3 text-sm text-muted">
+                <span class="rounded-full bg-amber/15 px-3 py-1 text-xs font-semibold text-ink">{latestRelease.tagName}</span>
+                <span class="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-ink">yellowdex-ext</span>
+                {latestRelease.publishedOn && <span>{latestRelease.publishedOn}</span>}
+              </div>
+              <h3 class="font-display text-2xl text-charcoal">{latestRelease.name}</h3>
+              <p class="text-muted">{latestRelease.excerpt}</p>
+            </div>
+            <div class="flex flex-col gap-3 sm:items-end">
+              <a
+                href={latestRelease.htmlUrl || "#"}
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-5 py-3 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                View release notes
+                <span aria-hidden="true">↗</span>
+              </a>
+              <p class="text-xs text-muted">Source: github.com/nbitslabs/yellowdex-ext</p>
+            </div>
+          </div>
+        ) : (
+          <div class="card p-6">
+            <h3 class="font-display text-xl text-charcoal">No release yet</h3>
+            <p class="mt-2 text-muted">When the extension publishes a release, notes will appear here automatically.</p>
+          </div>
+        )}
       </div>
     </section>
 
