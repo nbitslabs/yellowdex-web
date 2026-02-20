@@ -73,12 +73,13 @@ const faqs = [
           <p class="font-display text-lg text-ink">Label the chain like a Pokédex</p>
         </div>
       </div>
-      <nav class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
+      <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
         <a href="#features" class="transition hover:text-ink">Features</a>
         <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="#faq" class="transition hover:text-ink">FAQ</a>
         <a
           href="#"
+          aria-label="Install Yellowdex on Chrome (placeholder link)"
           class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
         >
           Install on Chrome
@@ -87,7 +88,7 @@ const faqs = [
     </div>
   </header>
 
-  <main class="relative isolate">
+  <main id="main" class="relative isolate">
     <section id="hero" class="px-6 pb-16 pt-12 sm:pt-16 lg:px-8 lg:pt-20">
       <div class="mx-auto max-w-6xl">
         <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -106,6 +107,7 @@ const faqs = [
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href="#"
+                aria-label="Install Yellowdex on Chrome (placeholder link)"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-6 py-3 text-base font-semibold text-sun shadow-xl shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-2xl"
               >
                 Install on Chrome
@@ -162,7 +164,7 @@ const faqs = [
               <div class="grid gap-4 rounded-2xl border border-charcoal/10 bg-white/90 p-4 shadow-lg">
                 <div class="flex items-center justify-between">
                   <p class="text-sm font-semibold text-ink">Collections</p>
-                  <button class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Share</button>
+                  <button aria-label="Share this collection" class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Share</button>
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-sm text-ink">
                   <div class="rounded-xl bg-amber/10 p-3 shadow-sm">
@@ -318,7 +320,7 @@ const faqs = [
             </div>
             <div class="mt-4 flex items-center justify-between">
               <p class="text-sm text-muted">Invite collaborators or publish as read-only.</p>
-              <button class="rounded-full bg-charcoal px-4 py-2 text-xs font-semibold text-sun shadow-lg shadow-amber/30">
+              <button aria-label="Share this deck" class="rounded-full bg-charcoal px-4 py-2 text-xs font-semibold text-sun shadow-lg shadow-amber/30">
                 Share deck
               </button>
             </div>
@@ -391,12 +393,14 @@ const faqs = [
           <div class="flex flex-col gap-3 sm:flex-row">
             <a
               href="#"
+              aria-label="Install Yellowdex on Chrome (placeholder link)"
               class="inline-flex items-center justify-center gap-2 rounded-full bg-sun px-6 py-3 text-base font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
             >
               Install on Chrome
             </a>
             <a
               href="mailto:hello@yellowdex.app"
+              aria-label="Request early access to Yellowdex"
               class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/40"
             >
               Request early access

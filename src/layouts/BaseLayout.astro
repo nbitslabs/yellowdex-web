@@ -13,6 +13,8 @@ const {
     "Yellowdex is the Chrome extension that lets you label crypto addresses wherever you browse, organize collections, and share them with your crew.",
   ogImage = "/og-yellowdex.svg",
 } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 ---
 
 <html lang="en" class="bg-paper text-ink">
@@ -21,17 +23,25 @@ const {
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <meta property="og:url" content={canonical ?? undefined} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#f8d23c" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="bg-paper text-ink antialiased">
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="relative min-h-screen overflow-hidden">
       <div class="pointer-events-none absolute inset-0 opacity-60">
         <div class="absolute left-[-15%] top-[-10%] h-80 w-80 rounded-full bg-sun/40 blur-3xl"></div>
