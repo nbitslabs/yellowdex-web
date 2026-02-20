@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://yellowdex.app',
+  site: 'https://yellowdex.ai',
   vite: {
     plugins: [tailwindcss()]
   }

@@ -21,4 +21,5 @@ pnpm dev
 
 - The "Install on Chrome" CTA currently uses a placeholder link until the Chrome Web Store listing is live.
 - Tailwind v4 is set up via `@tailwindcss/vite` with theme tokens defined in `src/styles/global.css`.
-- Canonical URL, `robots.txt`, and `sitemap.xml` assume `https://yellowdex.app`. Update `astro.config.mjs` and `public/robots.txt`/`public/sitemap.xml` if you deploy on a different domain.
+- Canonical URL, `robots.txt`, and `sitemap.xml` assume `https://yellowdex.ai`. Update `astro.config.mjs` and `public/robots.txt`/`public/sitemap.xml` if you deploy on a different domain.
+- Landing page pulls the latest release notes from `nbitslabs/yellowdex-ext` at build time; a GitHub Pages deploy workflow triggers on `push`, nightly schedule, manual dispatch, and `repository_dispatch` (`ext-release-published`).
