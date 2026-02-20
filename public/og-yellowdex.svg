@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF7D6" />
+      <stop offset="1" stop-color="#FFD45C" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 120) rotate(90) scale(420 320)">
+      <stop stop-color="#1FB6AD" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#1FB6AD" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="32" />
+  <rect width="1200" height="630" fill="url(#glow)" rx="32" />
+  <rect x="120" y="110" width="440" height="410" rx="32" fill="#0F172A" />
+  <rect x="140" y="140" width="400" height="350" rx="28" fill="#0F172A" stroke="#F8D23C" stroke-width="6" />
+  <path d="M210 200C210 187.85 219.85 178 232 178H338C350.15 178 360 187.85 360 200C360 211.6 351.149 221.187 339.573 221.944L298 224.8V370C298 382.15 288.15 392 276 392C263.85 392 254 382.15 254 370V236.4L210 200Z" fill="#F8D23C" />
+  <path d="M246 218C246 209.163 253.163 202 262 202H332C340.837 202 348 209.163 348 218C348 226.837 340.837 234 332 234H296C287.163 234 280 241.163 280 250V366C280 374.837 272.837 382 264 382C255.163 382 248 374.837 248 366V242L246 218Z" fill="#1FB6AD" />
+  <circle cx="226" cy="200" r="18" fill="#F8D23C" stroke="#0F172A" stroke-width="6" />
+  <circle cx="226" cy="200" r="9" fill="#1FB6AD" />
+  <text x="620" y="240" fill="#0F172A" font-family="'Sora','Space Grotesk','Inter',sans-serif" font-size="64" font-weight="700">Yellowdex</text>
+  <text x="620" y="300" fill="#1F2937" font-family="'Space Grotesk','Inter',sans-serif" font-size="32" font-weight="500">Label crypto addresses anywhere you browse.</text>
+  <text x="620" y="360" fill="#1F2937" font-family="'Space Grotesk','Inter',sans-serif" font-size="28" font-weight="500">Save them to collections and share with your crew.</text>
+  <rect x="620" y="400" width="260" height="72" rx="36" fill="#0F172A" />
+  <text x="650" y="448" fill="#F8D23C" font-family="'Sora','Space Grotesk','Inter',sans-serif" font-size="28" font-weight="700">Install on Chrome</text>
+</svg>

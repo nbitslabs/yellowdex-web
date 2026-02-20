@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Yellowdex | Label crypto addresses anywhere",
+  description =
+    "Yellowdex is the Chrome extension that lets you label crypto addresses wherever you browse, organize collections, and share them with your crew.",
+  ogImage = "/og-yellowdex.svg",
+} = Astro.props;
+---
+
+<html lang="en" class="bg-paper text-ink">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="theme-color" content="#f8d23c" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-paper text-ink antialiased">
+    <div class="relative min-h-screen overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 opacity-60">
+        <div class="absolute left-[-15%] top-[-10%] h-80 w-80 rounded-full bg-sun/40 blur-3xl"></div>
+        <div class="absolute right-[-10%] top-[10%] h-72 w-72 rounded-full bg-emerald/30 blur-3xl"></div>
+        <div class="absolute bottom-[-15%] right-[25%] h-64 w-64 rounded-full bg-amber/30 blur-[120px]"></div>
+      </div>
+      <div class="relative">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,427 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    title: "Spot an address",
+    body: "Yellowdex floats beside any address you see on explorers, wallets, dashboards, and marketplaces.",
+  },
+  {
+    title: "Label it in a tap",
+    body: "Add a name, context, warnings, and tags. Your notes stay synced across the web.",
+  },
+  {
+    title: "Save to a deck",
+    body: "Organize labels into collections (like a Pokédex) and share them with teammates or the public.",
+  },
+];
+
+const features = [
+  {
+    title: "Works wherever you browse",
+    body: "Overlay labels across explorers, portfolio trackers, DEXs, NFT markets, and governance forums.",
+    chips: ["Etherscan", "Solscan", "Zapper", "OpenSea"],
+  },
+  {
+    title: "Collections you can share",
+    body: "Bundle labels into curated decks for protocols, counterparties, or investigations—share a link or invite collaborators.",
+    chips: ["Private", "Shared", "Read-only", "Export"],
+  },
+  {
+    title: "Signal what matters",
+    body: "Color-coded badges help you highlight risk, ownership, purpose, or provenance at a glance.",
+    chips: ["Risk", "Team", "DeFi", "OTC"],
+  },
+  {
+    title: "Yours to control",
+    body: "Local-first labels by default. Decide what syncs, what stays local, and what goes to shared decks.",
+    chips: ["Local-first", "Privacy", "Backups", "Versioning"],
+  },
+];
+
+const faqs = [
+  {
+    q: "Is the Chrome link live?",
+    a: "We’re finalizing the Chrome Web Store listing. For now the Install button uses a placeholder link—tap it to join the waitlist.",
+  },
+  {
+    q: "Where do my labels live?",
+    a: "Labels are local-first. You choose what to sync, what to export, and what to share with others.",
+  },
+  {
+    q: "Which sites are supported?",
+    a: "Any site that surfaces addresses. We prioritize major explorers, wallets, dashboards, and marketplaces.",
+  },
+  {
+    q: "Can I collaborate with a team?",
+    a: "Yes. Create a shared collection, invite teammates, and keep a single source of truth for labels.",
+  },
+  {
+    q: "What about other browsers?",
+    a: "Chrome first. Firefox and Edge are on the roadmap—join the list to be notified.",
+  },
+];
+---
+
+<BaseLayout>
+  <header class="sticky top-0 z-20 bg-paper/80 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+      <div class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="font-display text-lg text-ink">Label the chain like a Pokédex</p>
+        </div>
+      </div>
+      <nav class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
+        <a href="#features" class="transition hover:text-ink">Features</a>
+        <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
+        <a href="#faq" class="transition hover:text-ink">FAQ</a>
+        <a
+          href="#"
+          class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          Install on Chrome
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="relative isolate">
+    <section id="hero" class="px-6 pb-16 pt-12 sm:pt-16 lg:px-8 lg:pt-20">
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div class="space-y-6">
+            <div class="inline-flex items-center gap-3 rounded-full bg-amber/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-amber">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber text-charcoal">Y</span>
+              Yellow Pages × Pokédex for crypto addresses
+            </div>
+            <h1 class="font-display text-4xl leading-tight text-charcoal sm:text-5xl lg:text-6xl">
+              Label crypto addresses anywhere you browse.
+            </h1>
+            <p class="max-w-2xl text-lg text-muted">
+              Yellowdex keeps context tethered to every address—on explorers, wallets, dashboards, marketplaces, and forums. Save
+              labels to collections and share them with your team.
+            </p>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="#"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-6 py-3 text-base font-semibold text-sun shadow-xl shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-2xl"
+              >
+                Install on Chrome
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="#how-it-works"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/10 bg-white/70 px-5 py-3 text-base font-semibold text-ink transition hover:-translate-y-0.5 hover:border-charcoal/20"
+              >
+                See how it works
+              </a>
+            </div>
+            <div class="flex flex-wrap gap-4 text-sm text-muted">
+              <div class="flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 shadow-sm shadow-amber/10">
+                <span class="h-2 w-2 rounded-full bg-emerald"></span>
+                Local-first labels; you control sharing.
+              </div>
+              <div class="flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 shadow-sm shadow-amber/10">
+                <span class="h-2 w-2 rounded-full bg-amber"></span>
+                Placeholder Chrome link until listing is live.
+              </div>
+            </div>
+          </div>
+
+          <div class="card relative overflow-hidden">
+            <div class="absolute left-6 top-6 rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">
+              Live overlay preview
+            </div>
+            <div class="relative space-y-4 p-8">
+              <div class="rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
+                <div class="flex items-center justify-between px-4 py-3">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
+                      <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
+                    </div>
+                    <div>
+                      <p class="text-xs uppercase tracking-wide text-amber">Address overlay</p>
+                      <p class="text-lg font-semibold text-white">0x0d...1e9c • Bridges</p>
+                    </div>
+                  </div>
+                  <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
+                </div>
+                <div class="space-y-2 bg-black/30 px-4 py-3 text-sm text-sun/90">
+                  <p>Label: Wormhole Guardian (multisig)</p>
+                  <p>Notes: high-value bridge vault; watch for announcements.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Bridge</span>
+                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Team</span>
+                    <span class="rounded-full bg-emerald/20 px-3 py-1 text-xs font-semibold text-emerald">Low risk</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid gap-4 rounded-2xl border border-charcoal/10 bg-white/90 p-4 shadow-lg">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-ink">Collections</p>
+                  <button class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Share</button>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-sm text-ink">
+                  <div class="rounded-xl bg-amber/10 p-3 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-muted">DeFi decks</p>
+                    <p class="text-base font-semibold text-charcoal">Major bridges</p>
+                    <p class="text-xs text-muted">18 labels • shared</p>
+                  </div>
+                  <div class="rounded-xl bg-emerald/10 p-3 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-muted">Investigations</p>
+                    <p class="text-base font-semibold text-charcoal">Exploiter watch</p>
+                    <p class="text-xs text-muted">9 labels • private</p>
+                  </div>
+                  <div class="rounded-xl bg-white p-3 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-muted">OTC</p>
+                    <p class="text-base font-semibold text-charcoal">Counterparties</p>
+                    <p class="text-xs text-muted">24 labels</p>
+                  </div>
+                  <div class="rounded-xl bg-sun/10 p-3 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-muted">Personal</p>
+                    <p class="text-base font-semibold text-charcoal">Friends & teams</p>
+                    <p class="text-xs text-muted">12 labels</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="how-it-works">
+      <div class="mx-auto max-w-6xl space-y-10">
+        <div class="space-y-3">
+          <p class="pill">How it works</p>
+          <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Dex-level context in three steps.</h2>
+            <p class="max-w-2xl text-muted">
+              Keep your address intel close to the surface. Yellowdex rides along anywhere you see an address and lets you capture,
+              organize, and reuse that knowledge instantly.
+            </p>
+          </div>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3">
+          {steps.map((step, idx) => (
+            <div class="card relative h-full p-6">
+              <div class="absolute -left-3 -top-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-charcoal text-lg font-bold text-sun shadow-lg">
+                {idx + 1}
+              </div>
+              <h3 class="mt-4 font-display text-xl text-charcoal">{step.title}</h3>
+              <p class="mt-3 text-sm text-muted">{step.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="features">
+      <div class="mx-auto max-w-6xl space-y-10">
+        <div class="space-y-3">
+          <p class="pill">What you get</p>
+          <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Built for power labelers.</h2>
+            <p class="max-w-2xl text-muted">
+              A Yellow Pages vibe with Pokédex discipline: structured, fast, and always on top of the page you are reading.
+            </p>
+          </div>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+          {features.map((feature) => (
+            <div class="card h-full p-6">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display text-xl text-charcoal">{feature.title}</h3>
+                <div class="h-2 w-10 rounded-full bg-amber"></div>
+              </div>
+              <p class="mt-3 text-sm text-muted">{feature.body}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {feature.chips.map((chip) => (
+                  <span class="rounded-full bg-amber/15 px-3 py-1 text-xs font-semibold text-ink">{chip}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="collections">
+      <div class="mx-auto max-w-6xl rounded-3xl border border-charcoal/10 bg-charcoal text-sun shadow-2xl shadow-amber/30">
+        <div class="grid gap-8 p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div class="space-y-4">
+            <p class="pill inline-flex bg-white/10 text-white">Collections</p>
+            <h2 class="font-display text-3xl leading-tight sm:text-4xl">Decks for every protocol, team, or investigation.</h2>
+            <p class="text-base text-sun/90">
+              Save addresses into themed decks, keep sensitive labels private, and publish shareable collections when you want the
+              whole squad aligned.
+            </p>
+            <div class="grid gap-3 text-sm text-sun/90 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-wide text-amber">Share links</p>
+                <p class="mt-1 font-semibold text-white">Read-only or collaborative invites</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-wide text-amber">Exports</p>
+                <p class="mt-1 font-semibold text-white">CSV, JSON, or sync to a repo</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-wide text-amber">Signals</p>
+                <p class="mt-1 font-semibold text-white">Color-code risk, ownership, provenance</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-wide text-amber">Access control</p>
+                <p class="mt-1 font-semibold text-white">Private by default, granular sharing</p>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-white/95 p-6 text-ink">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-muted">Shared deck</p>
+                <p class="text-xl font-display text-charcoal">Bridge sentinels</p>
+              </div>
+              <span class="rounded-full bg-emerald/20 px-3 py-1 text-xs font-semibold text-emerald">Synced</span>
+            </div>
+            <div class="mt-4 space-y-3 text-sm text-ink">
+              <div class="flex items-center justify-between rounded-2xl bg-amber/10 px-4 py-3">
+                <div>
+                  <p class="font-semibold text-charcoal">0x742d...1b5c</p>
+                  <p class="text-xs text-muted">Main bridge vault</p>
+                </div>
+                <span class="rounded-full bg-amber px-3 py-1 text-xs font-semibold text-charcoal">Safe</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-emerald/10 px-4 py-3">
+                <div>
+                  <p class="font-semibold text-charcoal">0x8ba1...b5e3</p>
+                  <p class="text-xs text-muted">Guardian multisig</p>
+                </div>
+                <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-white px-4 py-3">
+                <div>
+                  <p class="font-semibold text-charcoal">0xa98c...9ce1</p>
+                  <p class="text-xs text-muted">Exploiter watch</p>
+                </div>
+                <span class="rounded-full bg-charcoal px-3 py-1 text-xs font-semibold text-sun">Caution</span>
+              </div>
+              <div class="flex items-center justify-between rounded-2xl bg-white px-4 py-3">
+                <div>
+                  <p class="font-semibold text-charcoal">0x1aa7...ce12</p>
+                  <p class="text-xs text-muted">OTC counterparty</p>
+                </div>
+                <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-ink">Note</span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between">
+              <p class="text-sm text-muted">Invite collaborators or publish as read-only.</p>
+              <button class="rounded-full bg-charcoal px-4 py-2 text-xs font-semibold text-sun shadow-lg shadow-amber/30">
+                Share deck
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="trust">
+      <div class="mx-auto max-w-6xl rounded-3xl border border-charcoal/10 bg-white/90 p-8 shadow-xl">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div class="space-y-3">
+            <p class="pill">Trust & safety</p>
+            <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Built for teams who care about context.</h2>
+            <p class="max-w-3xl text-muted">
+              Privacy-first by design. Keep sensitive intel local, and publish only what’s meant to be shared. Export your data, back
+              it up, and keep your notes portable.
+            </p>
+          </div>
+          <div class="grid gap-3 text-sm text-ink sm:grid-cols-2">
+            <div class="rounded-2xl bg-amber/10 p-4 shadow-sm">
+              <p class="font-semibold text-charcoal">Local-first defaults</p>
+              <p class="text-muted">No surprise syncs—opt in to sharing.</p>
+            </div>
+            <div class="rounded-2xl bg-emerald/10 p-4 shadow-sm">
+              <p class="font-semibold text-charcoal">Backups & exports</p>
+              <p class="text-muted">Keep copies in your vault or repo.</p>
+            </div>
+            <div class="rounded-2xl bg-white p-4 shadow-sm">
+              <p class="font-semibold text-charcoal">Team-friendly</p>
+              <p class="text-muted">Granular permissions for decks.</p>
+            </div>
+            <div class="rounded-2xl bg-white p-4 shadow-sm">
+              <p class="font-semibold text-charcoal">No dark patterns</p>
+              <p class="text-muted">Clear controls, reversible choices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-16 lg:px-8" id="faq">
+      <div class="mx-auto max-w-6xl space-y-8">
+        <div class="space-y-3">
+          <p class="pill">FAQ</p>
+          <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Answers at a glance.</h2>
+          <p class="max-w-2xl text-muted">
+            Questions about the extension, sharing, and supported surfaces. Want more? Drop us a note when you request access.
+          </p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          {faqs.map((item) => (
+            <div class="card h-full p-5">
+              <h3 class="font-semibold text-charcoal">{item.q}</h3>
+              <p class="mt-2 text-sm text-muted">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 pb-20 lg:px-8" id="install">
+      <div class="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-charcoal/10 bg-charcoal text-sun shadow-2xl shadow-amber/30">
+        <div class="flex flex-col gap-6 px-8 py-10 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm uppercase tracking-[0.2em] text-amber">Get Yellowdex</p>
+            <h3 class="mt-2 font-display text-3xl text-white">Install on Chrome or join the list.</h3>
+            <p class="mt-2 text-sun/90">Chrome link is a placeholder while the store listing is under review.</p>
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-sun px-6 py-3 text-base font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
+            >
+              Install on Chrome
+            </a>
+            <a
+              href="mailto:hello@yellowdex.app"
+              class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/40"
+            >
+              Request early access
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-charcoal/10 bg-paper/80 px-6 py-10 lg:px-8">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="text-sm text-ink-soft">A Yellow Pages × Pokédex for crypto addresses.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 text-sm text-muted">
+        <a href="#features" class="hover:text-ink">Features</a>
+        <a href="#how-it-works" class="hover:text-ink">How it works</a>
+        <a href="#faq" class="hover:text-ink">FAQ</a>
+        <a href="mailto:hello@yellowdex.app" class="hover:text-ink">Contact</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
