@@ -12,7 +12,7 @@ const steps = [
     body: "Assign an entity, add a label and color-coded tags. Your labels appear everywhere you browse.",
   },
   {
-    title: "Save to a deck",
+    title: "Save to a collection",
     body: "Organize labels into collections (like a contact list) and share them with teammates or the public.",
   },
 ];
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Can I collaborate with a team?",
-    a: "Yes. Create a shared deck, generate a read-only link, and keep a single source of truth for labels.",
+    a: "Yes. Create a shared collection, generate a read-only link, and keep a single source of truth for labels.",
   },
   {
     q: "What about other browsers?",
@@ -172,7 +172,7 @@ const latestRelease = await getLatestRelease();
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-sm text-ink">
                   <div class="rounded-xl bg-amber/10 p-3 shadow-sm">
-                    <p class="text-xs uppercase tracking-wide text-muted">DeFi decks</p>
+                    <p class="text-xs uppercase tracking-wide text-muted">DeFi collections</p>
                     <p class="text-base font-semibold text-charcoal">Major bridges</p>
                     <p class="text-xs text-muted">18 labels • shared</p>
                   </div>
@@ -260,9 +260,9 @@ const latestRelease = await getLatestRelease();
         <div class="grid gap-8 p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div class="space-y-4">
             <p class="pill inline-flex bg-white/10 text-white">Collections</p>
-            <h2 class="font-display text-3xl leading-tight sm:text-4xl">Share a deck. Import with one click.</h2>
+            <h2 class="font-display text-3xl leading-tight sm:text-4xl">Share a collection. Import with one click.</h2>
             <p class="text-base text-sun/90">
-              Generate a share link for any collection and send it to your team. Recipients import the entire deck — entities,
+              Generate a share link for any collection and send it to your team. Recipients import the entire collection — entities,
               labels, and signals — with one click from the link.
             </p>
             <div class="grid gap-3 text-sm text-sun/90 sm:grid-cols-2">
@@ -398,7 +398,7 @@ const latestRelease = await getLatestRelease();
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">Team-friendly</p>
-              <p class="text-muted">Share read-only links for decks.</p>
+              <p class="text-muted">Share read-only links for collections.</p>
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">No dark patterns</p>
