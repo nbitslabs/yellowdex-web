@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap");
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-display: "Sora", "Space Grotesk", system-ui, -apple-system, sans-serif;
