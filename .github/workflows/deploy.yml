@@ -55,8 +55,8 @@ jobs:
       - name: Build site
         run: pnpm run build
         env:
-          # Use GITHUB_TOKEN to avoid rate limiting when fetching extension releases
-          PUBLIC_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT with read access to the private nbitslabs/yellowdex-ext repo
+          PUBLIC_GITHUB_TOKEN: ${{ secrets.EXT_RELEASE_TOKEN }}
 
       # Upload built site as Pages artifact (special artifact type)
       - name: Upload Pages artifact
