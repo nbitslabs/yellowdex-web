@@ -1,28 +1,35 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Deploy on all pushes to main (includes release commits and direct commits)
   push:
     branches: [main]
+  # Deploy when extension releases are published (updates the "Download" link)
   repository_dispatch:
     types: [ext-release-published]
+  # Allow manual deployments
   workflow_dispatch:
+  # Nightly deployments to pick up fresh extension release data
   schedule:
     - cron: "0 5 * * *"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read  # Read repository contents
+  pages: write    # Deploy to GitHub Pages
+  id-token: write # OIDC token for Pages deployment verification
 
+# Prevent concurrent deployments - cancel in-progress deploys when new one starts
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
   build:
+    name: Build Site
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup pnpm
@@ -39,24 +46,42 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Configure GitHub Pages (sets base URL and other settings)
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Build
+      # Build the static site to dist/
+      # Fetches latest extension release from nbitslabs/yellowdex-ext at build time
+      - name: Build site
         run: pnpm run build
+        env:
+          # Use GITHUB_TOKEN to avoid rate limiting when fetching extension releases
+          PUBLIC_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload artifact
+      # Upload built site as Pages artifact (special artifact type)
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
+    name: Deploy to Pages
     needs: build
+    runs-on: ubuntu-latest
+    # Deploy to github-pages environment for deployment tracking
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
+
+      # Record deployment metadata for visibility
+      - name: Deployment summary
+        run: |
+          echo "## Deployment Successful ✓" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Site URL:** ${{ steps.deploy.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
