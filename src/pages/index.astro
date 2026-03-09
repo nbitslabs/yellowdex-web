@@ -9,7 +9,7 @@ const steps = [
   },
   {
     title: "Label it in a tap",
-    body: "Add a name, context, warnings, and tags. Your notes stay synced across the web.",
+    body: "Assign an entity, add a label and color-coded tags. Your labels appear everywhere you browse.",
   },
   {
     title: "Save to a deck",
@@ -25,7 +25,7 @@ const features = [
   },
   {
     title: "Collections you can share",
-    body: "Bundle labels into curated decks for protocols, counterparties, or investigations—share a link or invite collaborators.",
+    body: "Bundle labels into curated decks for protocols, counterparties, or investigations—then share a read-only link.",
     chips: ["Private", "Shared", "Read-only", "Export"],
   },
   {
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Can I collaborate with a team?",
-    a: "Yes. Create a shared collection, invite teammates, and keep a single source of truth for labels.",
+    a: "Yes. Create a shared deck, generate a read-only link, and keep a single source of truth for labels.",
   },
   {
     q: "What about other browsers?",
@@ -155,8 +155,8 @@ const latestRelease = await getLatestRelease();
                   <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
                 </div>
                 <div class="space-y-2 bg-black/30 px-4 py-3 text-sm text-sun/90">
-                  <p>Label: Wormhole Guardian (multisig)</p>
-                  <p>Notes: high-value bridge vault; watch for announcements.</p>
+                  <p><span class="text-amber">Entity:</span> Wormhole</p>
+                  <p><span class="text-amber">Label:</span> Guardian (multisig)</p>
                   <div class="flex flex-wrap gap-2">
                     <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Bridge</span>
                     <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Team</span>
@@ -268,11 +268,11 @@ const latestRelease = await getLatestRelease();
             <div class="grid gap-3 text-sm text-sun/90 sm:grid-cols-2">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Share links</p>
-                <p class="mt-1 font-semibold text-white">Read-only or collaborative invites</p>
+                <p class="mt-1 font-semibold text-white">Read-only shareable links</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Exports</p>
-                <p class="mt-1 font-semibold text-white">CSV, JSON, or sync to a repo</p>
+                <p class="mt-1 font-semibold text-white">JSON export & import</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Signals</p>
@@ -323,7 +323,7 @@ const latestRelease = await getLatestRelease();
               </div>
             </div>
             <div class="mt-4 flex items-center justify-between">
-              <p class="text-sm text-muted">Invite collaborators or publish as read-only.</p>
+              <p class="text-sm text-muted">Share a read-only link others can import.</p>
               <button aria-label="Share this deck" class="rounded-full bg-charcoal px-4 py-2 text-xs font-semibold text-sun shadow-lg shadow-amber/30">
                 Share deck
               </button>
@@ -393,11 +393,11 @@ const latestRelease = await getLatestRelease();
             </div>
             <div class="rounded-2xl bg-emerald/10 p-4 shadow-sm">
               <p class="font-semibold text-charcoal">Backups & exports</p>
-              <p class="text-muted">Keep copies in your vault or repo.</p>
+              <p class="text-muted">Export to JSON anytime.</p>
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">Team-friendly</p>
-              <p class="text-muted">Granular permissions for decks.</p>
+              <p class="text-muted">Share read-only links for decks.</p>
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">No dark patterns</p>
