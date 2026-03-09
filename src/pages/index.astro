@@ -348,8 +348,7 @@ const latestRelease = await getLatestRelease();
           <p class="pill">Latest release</p>
           <h2 class="font-display text-3xl text-charcoal sm:text-4xl">Fresh from the Yellowdex extension.</h2>
           <p class="max-w-2xl text-muted">
-            Release notes are pulled from the Yellowdex extension repo whenever a new version ships. Deploys are automatic when a
-            release is published.
+            Release notes are pulled from the Yellowdex extension repo whenever a new version ships.
           </p>
         </div>
 
@@ -362,17 +361,7 @@ const latestRelease = await getLatestRelease();
                 {latestRelease.publishedOn && <span>{latestRelease.publishedOn}</span>}
               </div>
               <h3 class="font-display text-2xl text-charcoal">{latestRelease.name}</h3>
-              <p class="text-muted">{latestRelease.excerpt}</p>
-            </div>
-            <div class="flex flex-col gap-3 sm:items-end">
-              <a
-                href={latestRelease.htmlUrl || "#"}
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-5 py-3 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
-              >
-                View release notes
-                <span aria-hidden="true">↗</span>
-              </a>
-              <p class="text-xs text-muted">Source: github.com/nbitslabs/yellowdex-ext</p>
+              <div class="prose prose-sm max-w-none text-muted" set:html={latestRelease.bodyHtml} />
             </div>
           </div>
         ) : (

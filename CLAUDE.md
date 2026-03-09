@@ -35,9 +35,15 @@ Tailwind CSS v4 with custom theme in `global.css`:
 
 ### Deployment
 
-Two GitHub Actions workflows:
-- **ci.yml** — Runs `pnpm build` on every push and PR to main.
-- **deploy.yml** — Deploys to GitHub Pages on push to main, nightly at 5 AM UTC, manual dispatch, or `ext-release-published` repository dispatch.
+Two GitHub Actions workflows handle CI and deployment:
+
+- **ci.yml** — Validates builds on every push and PR to main. Uploads build artifacts for potential reuse. This check must pass before PRs can be merged (enforced via branch protection).
+
+- **deploy.yml** — Deploys to GitHub Pages at yellowdex.ai on push to main, nightly at 5 AM UTC, manual dispatch, or `ext-release-published` repository dispatch from the extension repo.
+
+Merging a PR to main triggers CI validation and then automatic deployment. No versioning or release tagging is used.
+
+See `.github/BRANCH_PROTECTION.md` for setup instructions.
 
 ### Extension detection
 

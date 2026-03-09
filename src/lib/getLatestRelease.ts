@@ -1,3 +1,5 @@
+import { marked } from "marked";
+
 const API_URL = "https://api.github.com/repos/nbitslabs/yellowdex-ext/releases/latest";
 
 export interface LatestRelease {
@@ -7,6 +9,7 @@ export interface LatestRelease {
   publishedAt: string | null;
   publishedOn: string | null;
   excerpt: string;
+  bodyHtml: string;
 }
 
 export async function getLatestRelease(): Promise<LatestRelease | null> {
@@ -28,6 +31,7 @@ export async function getLatestRelease(): Promise<LatestRelease | null> {
     if (!data || !data.tag_name) return null;
 
     const publishedAt: string | null = data.published_at || data.created_at || null;
+    const bodyHtml = await marked.parse(data.body || "", { gfm: true, breaks: true });
     return {
       tagName: data.tag_name,
       name: data.name || data.tag_name,
@@ -35,6 +39,7 @@ export async function getLatestRelease(): Promise<LatestRelease | null> {
       publishedAt,
       publishedOn: publishedAt ? formatDate(publishedAt) : null,
       excerpt: makeExcerpt(data.body || ""),
+      bodyHtml,
     };
   } catch (err) {
     console.error("getLatestRelease failed", err);

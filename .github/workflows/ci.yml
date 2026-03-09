@@ -6,10 +6,13 @@ on:
       - main
   pull_request:
 
+# Ensures failed builds block PR merges when used with branch protection
 jobs:
   build:
-    name: Build
+    name: Build & Validate
     runs-on: ubuntu-latest
+    # Timeout prevents hung jobs from blocking PRs indefinitely
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,8 +28,22 @@ jobs:
           node-version: 20
           cache: pnpm
 
+      # Use frozen lockfile to ensure reproducible builds
+      # Fails if lockfile is out of sync with package.json
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Build step validates that the site compiles without errors
+      # This is the primary quality gate for this project (no tests/linters configured)
       - name: Build project
         run: pnpm build
+
+      # Store build artifacts for potential reuse in deploy workflow
+      # Avoids rebuilding on deployment if commit hash matches
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.sha }}
+          path: ./dist
+          retention-days: 1
+          if-no-files-found: error
