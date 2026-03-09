@@ -137,33 +137,41 @@ const latestRelease = await getLatestRelease();
           </div>
 
           <div class="card relative overflow-hidden">
-            <div class="absolute left-6 top-6 rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">
-              Live overlay preview
-            </div>
             <div class="relative space-y-4 p-8">
-              <div class="rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
-                <div class="flex items-center justify-between px-4 py-3">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
-                      <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
-                    </div>
-                    <div>
-                      <p class="text-xs uppercase tracking-wide text-amber">Address overlay</p>
-                      <p class="text-lg font-semibold text-white">0x0d...1e9c • Bridges</p>
-                    </div>
+              <div id="overlay-badge" class="hidden w-fit rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">
+                Live overlay preview
+              </div>
+              <!-- Default: no extension installed -->
+              <div id="overlay-default" class="rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
+                <div class="flex items-center gap-3 px-4 py-3">
+                  <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
+                    <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
                   </div>
-                  <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
+                  <p class="text-lg font-semibold text-white">Wormhole: 0xB0fF</p>
                 </div>
                 <div class="space-y-2 bg-black/30 px-4 py-3 text-sm text-sun/90">
                   <p><span class="text-amber">Entity:</span> Wormhole</p>
-                  <p><span class="text-amber">Label:</span> Guardian (multisig)</p>
                   <div class="flex flex-wrap gap-2">
+                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Guardian (multisig)</span>
                     <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Bridge</span>
                     <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Team</span>
                     <span class="rounded-full bg-emerald/20 px-3 py-1 text-xs font-semibold text-emerald">Low risk</span>
                   </div>
                 </div>
               </div>
+              <!-- Shown when extension is installed -->
+              <div id="overlay-extension" class="hidden rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
+                <div class="flex items-center gap-3 px-4 py-3">
+                  <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
+                    <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-wide text-amber">Address overlay</p>
+                    <p class="text-lg font-semibold text-white">0xB0fFa8000886e57F86dd5264b9582b2Ad87b2b91</p>
+                  </div>
+                </div>
+              </div>
+              <p id="overlay-caption" class="text-xs text-ink/50">Install the extension and hover over the address to see Yellowdex in action.</p>
 
               <div class="grid gap-4 rounded-2xl border border-charcoal/10 bg-white/90 p-4 shadow-lg">
                 <div class="flex items-center justify-between">
