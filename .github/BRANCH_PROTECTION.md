@@ -62,12 +62,12 @@ If `github-pages` environment doesn't exist, it will be created automatically wh
 Navigate to: **Settings → Actions → General → Workflow permissions**
 
 Ensure the following setting is enabled:
-- ✅ **Read and write permissions** (required for release workflow to create tags and releases)
+- ✅ **Read and write permissions**
 
 **Token permissions:**
 - ✅ Allow GitHub Actions to create and approve pull requests (optional, not currently needed)
 
-## How the Release Flow Works
+## How the Deploy Flow Works
 
 ### Development Workflow
 
@@ -76,7 +76,7 @@ Ensure the following setting is enabled:
    git checkout -b feat/add-new-feature
    ```
 
-2. **Make changes and commit** with conventional commit messages:
+2. **Make changes and commit**:
    ```bash
    git commit -m "feat: add FAQ accordion component
 
@@ -97,53 +97,10 @@ Ensure the following setting is enabled:
    - Branch protection ensures CI passed
    - Squash or rebase merge keeps history clean
 
-### Automated Release Flow
-
-6. **On merge to main**, two workflows trigger:
-
-   **Release Workflow (`release.yml`):**
-   - Analyzes conventional commits since last release
-   - Determines version bump (major/minor/patch)
-   - Updates `package.json` version
-   - Creates git tag (e.g., `v1.2.0`)
-   - Generates GitHub Release with auto-generated notes
-   - Commits version bump to main
-
-   **Deploy Workflow (`deploy.yml`):**
+6. **On merge to main**, the deploy workflow triggers:
    - Builds the static site
    - Deploys to GitHub Pages at yellowdex.ai
    - Records deployment in `github-pages` environment
-
-### Version Bump Rules
-
-The release workflow determines the version bump automatically:
-
-- **Patch (0.0.X):** `fix:`, `chore:`, `docs:`, `style:`, `refactor:`, `perf:` commits
-- **Minor (0.X.0):** `feat:` commits
-- **Major (X.0.0):** Commits with `!` suffix or `BREAKING CHANGE:` footer
-
-Example:
-```bash
-# Patch bump (v1.0.0 → v1.0.1)
-git commit -m "fix: resolve overlay badge overlap"
-
-# Minor bump (v1.0.0 → v1.1.0)
-git commit -m "feat: add FAQ section"
-
-# Major bump (v1.0.0 → v2.0.0)
-git commit -m "feat!: redesign landing page layout
-
-BREAKING CHANGE: Complete layout redesign"
-```
-
-### Manual Release
-
-To trigger a release manually with a specific version bump:
-
-1. Navigate to: **Actions → Release → Run workflow**
-2. Select branch: `main`
-3. Choose release type: `major`, `minor`, or `patch`
-4. Click **Run workflow**
 
 ## Troubleshooting
 
@@ -157,15 +114,6 @@ To trigger a release manually with a specific version bump:
 3. In "Require status checks to pass before merging", search for "Build & Validate"
 4. Select it from the dropdown (it only appears after running once)
 
-### Release Workflow Creates Duplicate Releases
-
-**Problem:** Multiple releases created for the same commit.
-
-**Solution:**
-- The workflow includes a check: `!startsWith(github.event.head_commit.message, 'chore(release):')`
-- This prevents the version bump commit from triggering another release
-- Ensure this condition remains in the workflow file
-
 ### Deploy Workflow Fails with 403 Error
 
 **Problem:** `actions/deploy-pages@v4` returns a 403 Forbidden error.
@@ -174,15 +122,6 @@ To trigger a release manually with a specific version bump:
 1. Navigate to: **Settings → Pages**
 2. Ensure **Source** is set to "GitHub Actions" (not "Deploy from a branch")
 3. Verify workflow has `id-token: write` permission in `deploy.yml`
-
-### Release Notes Are Empty
-
-**Problem:** GitHub Release is created but has no content.
-
-**Solution:**
-- Ensure PR titles follow conventional commit format
-- The release notes are generated from PR titles merged since the last release
-- If first release, it will show "Initial Release" message
 
 ## Recommended Git Configuration
 

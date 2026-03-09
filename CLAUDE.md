@@ -35,21 +35,15 @@ Tailwind CSS v4 with custom theme in `global.css`:
 
 ### Deployment
 
-Three GitHub Actions workflows implement automated releases and deployment:
+Two GitHub Actions workflows handle CI and deployment:
 
 - **ci.yml** — Validates builds on every push and PR to main. Uploads build artifacts for potential reuse. This check must pass before PRs can be merged (enforced via branch protection).
 
-- **release.yml** — Automatically creates versioned releases on merge to main. Analyzes conventional commits to determine version bump (major/minor/patch), updates package.json, creates git tags, and generates GitHub Releases with auto-generated notes.
-
 - **deploy.yml** — Deploys to GitHub Pages at yellowdex.ai on push to main, nightly at 5 AM UTC, manual dispatch, or `ext-release-published` repository dispatch from the extension repo.
 
-**Release Flow:**
-1. PR merged to main → CI validates build
-2. Release workflow analyzes commits → determines version bump (feat: = minor, fix: = patch, !: = major)
-3. Version bumped in package.json → git tag created (e.g., v1.2.0) → GitHub Release published
-4. Deploy workflow builds site → deploys to GitHub Pages
+Merging a PR to main triggers CI validation and then automatic deployment. No versioning or release tagging is used.
 
-See `.github/BRANCH_PROTECTION.md` for setup instructions and detailed workflow documentation.
+See `.github/BRANCH_PROTECTION.md` for setup instructions.
 
 ### Extension detection
 
