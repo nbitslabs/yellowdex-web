@@ -11,10 +11,13 @@ const {
   title = "Yellowdex | Label crypto addresses anywhere",
   description =
     "Yellowdex is the Chrome extension that lets you label crypto addresses wherever you browse, organize collections, and share them with your crew.",
-  ogImage = "/og-yellowdex.svg",
+  ogImage = "/og-yellowdex.png",
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const absoluteOgImage = ogImage.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, Astro.site).toString();
 ---
 
 <html lang="en" class="scroll-smooth bg-paper text-ink selection:bg-sun selection:text-charcoal">
@@ -31,11 +34,11 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={absoluteOgImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={absoluteOgImage} />
     <meta name="theme-color" content="#f8d23c" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
