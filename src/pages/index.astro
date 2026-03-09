@@ -9,10 +9,10 @@ const steps = [
   },
   {
     title: "Label it in a tap",
-    body: "Add a name, context, warnings, and tags. Your notes stay synced across the web.",
+    body: "Assign an entity, add a label and color-coded tags. Your labels appear everywhere you browse.",
   },
   {
-    title: "Save to a deck",
+    title: "Save to a collection",
     body: "Organize labels into collections (like a contact list) and share them with teammates or the public.",
   },
 ];
@@ -20,23 +20,23 @@ const steps = [
 const features = [
   {
     title: "Works wherever you browse",
-    body: "Overlay labels across explorers, portfolio trackers, DEXs, NFT markets, and governance forums.",
-    chips: ["Etherscan", "Solscan", "Zapper", "OpenSea"],
+    body: "Detects addresses automatically on any page you visit—no special integrations needed. If a site shows an address, Yellowdex will find it.",
+    chips: ["Etherscan", "Twitter", "Discord", "Docs"],
   },
   {
-    title: "Collections you can share",
-    body: "Bundle labels into curated decks for protocols, counterparties, or investigations—share a link or invite collaborators.",
-    chips: ["Private", "Shared", "Read-only", "Export"],
+    title: "Smart search with filters",
+    body: "Search with prefix syntax: a:0x123 for addresses, l:exchange for labels, e:uniswap for entities. Filter by current page or labeled status.",
+    chips: ["a: address", "l: label", "e: entity", "Filters"],
   },
   {
     title: "Signal what matters",
-    body: "Color-coded badges help you highlight risk, ownership, purpose, or provenance at a glance.",
-    chips: ["Risk", "Team", "DeFi", "OTC"],
+    body: "Create custom color-coded tags to mark addresses however you choose. Pre-built risk categories coming soon.",
+    chips: ["Custom tags", "Team", "DeFi", "OTC"],
   },
   {
-    title: "Yours to control",
-    body: "Local-first labels by default. Decide what syncs, what stays local, and what goes to shared decks.",
-    chips: ["Local-first", "Privacy", "Backups", "Versioning"],
+    title: "Sync across devices",
+    body: "Connect your wallet to sync labels across browsers, or keep everything local—your choice. Backups and exports always available.",
+    chips: ["Wallet sync", "Local-first", "Privacy", "Export"],
   },
 ];
 
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Can I collaborate with a team?",
-    a: "Yes. Create a shared collection, invite teammates, and keep a single source of truth for labels.",
+    a: "Yes. Create a shared collection, generate a read-only link, and keep a single source of truth for labels.",
   },
   {
     q: "What about other browsers?",
@@ -73,7 +73,7 @@ const latestRelease = await getLatestRelease();
         <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
-          <p class="font-display text-lg text-ink">Label every address. See the blockchain in X-ray.</p>
+          <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
         </div>
       </div>
       <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
@@ -99,10 +99,10 @@ const latestRelease = await getLatestRelease();
           <div class="space-y-6">
             <div class="inline-flex items-center gap-3 rounded-full bg-amber/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-amber">
               <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber text-charcoal">Y</span>
-              X-ray vision for crypto addresses
+              Context for every crypto address
             </div>
             <h1 class="font-display text-4xl leading-tight text-charcoal sm:text-5xl lg:text-6xl">
-              Label every address. See the blockchain in X-ray.
+              Label every address. Turn chaos into context.
             </h1>
             <p class="max-w-2xl text-lg text-muted">
               Yellowdex keeps context tethered to every address—on explorers, wallets, dashboards, marketplaces, and forums. Save
@@ -137,33 +137,41 @@ const latestRelease = await getLatestRelease();
           </div>
 
           <div class="card relative overflow-hidden">
-            <div class="absolute left-6 top-6 rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">
-              Live overlay preview
-            </div>
             <div class="relative space-y-4 p-8">
-              <div class="rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
-                <div class="flex items-center justify-between px-4 py-3">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
-                      <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
-                    </div>
-                    <div>
-                      <p class="text-xs uppercase tracking-wide text-amber">Address overlay</p>
-                      <p class="text-lg font-semibold text-white">0x0d...1e9c • Bridges</p>
-                    </div>
+              <div id="overlay-badge" class="hidden w-fit rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">
+                Live overlay preview
+              </div>
+              <!-- Default: no extension installed -->
+              <div id="overlay-default" class="rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
+                <div class="flex items-center gap-3 px-4 py-3">
+                  <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
+                    <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
                   </div>
-                  <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
+                  <p class="text-lg font-semibold text-white">Wormhole: 0xB0fF</p>
                 </div>
                 <div class="space-y-2 bg-black/30 px-4 py-3 text-sm text-sun/90">
-                  <p>Label: Wormhole Guardian (multisig)</p>
-                  <p>Notes: high-value bridge vault; watch for announcements.</p>
+                  <p><span class="text-amber">Entity:</span> Wormhole</p>
                   <div class="flex flex-wrap gap-2">
+                    <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Guardian (multisig)</span>
                     <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-amber">Bridge</span>
                     <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">Team</span>
                     <span class="rounded-full bg-emerald/20 px-3 py-1 text-xs font-semibold text-emerald">Low risk</span>
                   </div>
                 </div>
               </div>
+              <!-- Shown when extension is installed -->
+              <div id="overlay-extension" class="hidden rounded-2xl border border-charcoal/10 bg-charcoal text-sun shadow-xl">
+                <div class="flex items-center gap-3 px-4 py-3">
+                  <div class="h-10 w-10 rounded-xl bg-sun/10 p-2">
+                    <img src="/favicon.svg" alt="Yellowdex badge" class="h-full w-full" />
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-wide text-amber">Address overlay</p>
+                    <p class="text-lg font-semibold text-white">0xB0fFa8000886e57F86dd5264b9582b2Ad87b2b91</p>
+                  </div>
+                </div>
+              </div>
+              <p id="overlay-caption" class="text-xs text-ink/50">Install the extension and hover over the address to see Yellowdex in action.</p>
 
               <div class="grid gap-4 rounded-2xl border border-charcoal/10 bg-white/90 p-4 shadow-lg">
                 <div class="flex items-center justify-between">
@@ -172,7 +180,7 @@ const latestRelease = await getLatestRelease();
                 </div>
                 <div class="grid grid-cols-2 gap-3 text-sm text-ink">
                   <div class="rounded-xl bg-amber/10 p-3 shadow-sm">
-                    <p class="text-xs uppercase tracking-wide text-muted">DeFi decks</p>
+                    <p class="text-xs uppercase tracking-wide text-muted">DeFi collections</p>
                     <p class="text-base font-semibold text-charcoal">Major bridges</p>
                     <p class="text-xs text-muted">18 labels • shared</p>
                   </div>
@@ -260,19 +268,19 @@ const latestRelease = await getLatestRelease();
         <div class="grid gap-8 p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div class="space-y-4">
             <p class="pill inline-flex bg-white/10 text-white">Collections</p>
-            <h2 class="font-display text-3xl leading-tight sm:text-4xl">Decks for every protocol, team, or investigation.</h2>
+            <h2 class="font-display text-3xl leading-tight sm:text-4xl">Share a collection. Import with one click.</h2>
             <p class="text-base text-sun/90">
-              Save addresses into themed decks, keep sensitive labels private, and publish shareable collections when you want the
-              whole squad aligned.
+              Generate a share link for any collection and send it to your team. Recipients import the entire collection — entities,
+              labels, and signals — with one click from the link.
             </p>
             <div class="grid gap-3 text-sm text-sun/90 sm:grid-cols-2">
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Share links</p>
-                <p class="mt-1 font-semibold text-white">Read-only or collaborative invites</p>
+                <p class="mt-1 font-semibold text-white">Read-only shareable links</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Exports</p>
-                <p class="mt-1 font-semibold text-white">CSV, JSON, or sync to a repo</p>
+                <p class="mt-1 font-semibold text-white">JSON export & import</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-wide text-amber">Signals</p>
@@ -284,49 +292,50 @@ const latestRelease = await getLatestRelease();
               </div>
             </div>
           </div>
-          <div class="card bg-white/95 p-6 text-ink">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-xs uppercase tracking-wide text-muted">Shared deck</p>
-                <p class="text-xl font-display text-charcoal">Bridge sentinels</p>
+          <!-- Share flow storyboard -->
+          <div class="space-y-4">
+            <!-- Panel 1: Share Modal -->
+            <div class="card overflow-hidden bg-white/95 text-ink">
+              <!-- Window chrome -->
+              <div class="flex items-center gap-2 border-b border-charcoal/10 bg-charcoal/5 px-4 py-2.5">
+                <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-amber"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald"></span>
+                <span class="ml-2 text-xs font-medium text-muted">Share Collection</span>
               </div>
-              <span class="rounded-full bg-emerald/20 px-3 py-1 text-xs font-semibold text-emerald">Synced</span>
-            </div>
-            <div class="mt-4 space-y-3 text-sm text-ink">
-              <div class="flex items-center justify-between rounded-2xl bg-amber/10 px-4 py-3">
+              <!-- Modal body -->
+              <div class="space-y-3 p-5">
                 <div>
-                  <p class="font-semibold text-charcoal">0x742d...1b5c</p>
-                  <p class="text-xs text-muted">Main bridge vault</p>
+                  <p class="font-display text-lg font-bold text-charcoal">Bridge sentinels</p>
+                  <p class="text-xs text-muted">4 entities &middot; 18 addresses</p>
                 </div>
-                <span class="rounded-full bg-amber px-3 py-1 text-xs font-semibold text-charcoal">Safe</span>
-              </div>
-              <div class="flex items-center justify-between rounded-2xl bg-emerald/10 px-4 py-3">
                 <div>
-                  <p class="font-semibold text-charcoal">0x8ba1...b5e3</p>
-                  <p class="text-xs text-muted">Guardian multisig</p>
+                  <p class="text-[10px] font-semibold uppercase tracking-widest text-muted">Share Link</p>
+                  <div class="mt-1 flex items-center gap-2">
+                    <div class="flex-1 truncate rounded-lg border border-charcoal/10 bg-charcoal/5 px-3 py-2 font-mono text-xs text-charcoal">
+                      sync.yellowdex.ai/s/a3x9k
+                    </div>
+                    <span class="shrink-0 rounded-lg bg-charcoal px-3 py-2 text-xs font-semibold text-sun">Copy</span>
+                  </div>
                 </div>
-                <span class="rounded-full bg-emerald px-3 py-1 text-xs font-semibold text-charcoal">Verified</span>
-              </div>
-              <div class="flex items-center justify-between rounded-2xl bg-white px-4 py-3">
-                <div>
-                  <p class="font-semibold text-charcoal">0xa98c...9ce1</p>
-                  <p class="text-xs text-muted">Exploiter watch</p>
-                </div>
-                <span class="rounded-full bg-charcoal px-3 py-1 text-xs font-semibold text-sun">Caution</span>
-              </div>
-              <div class="flex items-center justify-between rounded-2xl bg-white px-4 py-3">
-                <div>
-                  <p class="font-semibold text-charcoal">0x1aa7...ce12</p>
-                  <p class="text-xs text-muted">OTC counterparty</p>
-                </div>
-                <span class="rounded-full bg-amber/20 px-3 py-1 text-xs font-semibold text-ink">Note</span>
+                <p class="text-xs text-muted">Anyone with this link can import your collection.</p>
               </div>
             </div>
-            <div class="mt-4 flex items-center justify-between">
-              <p class="text-sm text-muted">Invite collaborators or publish as read-only.</p>
-              <button aria-label="Share this deck" class="rounded-full bg-charcoal px-4 py-2 text-xs font-semibold text-sun shadow-lg shadow-amber/30">
-                Share deck
-              </button>
+
+            <!-- Arrow connector -->
+            <div class="flex justify-center">
+              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber text-charcoal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v10.586l3.293-3.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L9 14.586V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Panel 2: Import Banner -->
+            <div class="card overflow-hidden rounded-2xl border border-amber/30 bg-sun p-5 text-charcoal">
+              <p class="font-display text-base font-bold">Collection Ready to Import</p>
+              <p class="mt-1 text-xs text-charcoal/70">"Bridge sentinels" &middot; 4 entities &middot; 18 addresses</p>
+              <p class="mt-2 text-[11px] text-charcoal/60">Click the Yellowdex extension icon to import.</p>
             </div>
           </div>
         </div>
@@ -393,11 +402,11 @@ const latestRelease = await getLatestRelease();
             </div>
             <div class="rounded-2xl bg-emerald/10 p-4 shadow-sm">
               <p class="font-semibold text-charcoal">Backups & exports</p>
-              <p class="text-muted">Keep copies in your vault or repo.</p>
+              <p class="text-muted">Export to JSON anytime.</p>
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">Team-friendly</p>
-              <p class="text-muted">Granular permissions for decks.</p>
+              <p class="text-muted">Share read-only links for collections.</p>
             </div>
             <div class="rounded-2xl bg-white p-4 shadow-sm">
               <p class="font-semibold text-charcoal">No dark patterns</p>
@@ -463,7 +472,7 @@ const latestRelease = await getLatestRelease();
         <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
-          <p class="text-sm text-ink-soft">Label every address. See the blockchain in X-ray.</p>
+          <p class="text-sm text-ink-soft">Label every address. Turn chaos into context.</p>
         </div>
       </div>
       <div class="flex flex-wrap gap-4 text-sm text-muted">
@@ -474,4 +483,19 @@ const latestRelease = await getLatestRelease();
       </div>
     </div>
   </footer>
+<script>
+  // Detect Yellowdex extension via its injected stylesheet
+  function checkExtension() {
+    if (document.getElementById('eth-labeler-fontawesome')) {
+      document.getElementById('overlay-badge')?.classList.remove('hidden');
+      document.getElementById('overlay-default')?.classList.add('hidden');
+      document.getElementById('overlay-extension')?.classList.remove('hidden');
+      document.getElementById('overlay-caption')?.classList.add('hidden');
+    }
+  }
+  // Check after content scripts have loaded
+  checkExtension();
+  setTimeout(checkExtension, 500);
+  setTimeout(checkExtension, 1500);
+</script>
 </BaseLayout>
