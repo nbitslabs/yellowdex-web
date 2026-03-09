@@ -357,8 +357,7 @@ const latestRelease = await getLatestRelease();
             <div class="space-y-3">
               <div class="flex flex-wrap items-center gap-3 text-sm text-muted">
                 <span class="rounded-full bg-amber/15 px-3 py-1 text-xs font-semibold text-ink">{latestRelease.tagName}</span>
-                <span class="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-ink">yellowdex-ext</span>
-                {latestRelease.publishedOn && <span>{latestRelease.publishedOn}</span>}
+{latestRelease.publishedOn && <span>{latestRelease.publishedOn}</span>}
               </div>
               <h3 class="font-display text-2xl text-charcoal">{latestRelease.name}</h3>
               <div class="prose prose-sm max-w-none text-muted" set:html={latestRelease.bodyHtml} />
