@@ -42,10 +42,6 @@ const features = [
 
 const faqs = [
   {
-    q: "Is the Chrome link live?",
-    a: "We’re finalizing the Chrome Web Store listing. For now the Install button uses a placeholder link—tap it to join the waitlist.",
-  },
-  {
     q: "Where do my labels live?",
     a: "Labels are local-first. You choose what to sync, what to export, and what to share with others.",
   },
@@ -82,8 +78,10 @@ const latestRelease = await getLatestRelease();
         <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="#faq" class="transition hover:text-ink">FAQ</a>
         <a
-          href="#"
-          aria-label="Install Yellowdex on Chrome (placeholder link)"
+          href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Install Yellowdex on Chrome"
           class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
         >
           Install on Chrome
@@ -110,8 +108,10 @@ const latestRelease = await getLatestRelease();
             </p>
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
-                href="#"
-                aria-label="Install Yellowdex on Chrome (placeholder link)"
+                href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Install Yellowdex on Chrome"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-6 py-3 text-base font-semibold text-sun shadow-xl shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-2xl"
               >
                 Install on Chrome
@@ -128,10 +128,6 @@ const latestRelease = await getLatestRelease();
               <div class="flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 shadow-sm shadow-amber/10">
                 <span class="h-2 w-2 rounded-full bg-emerald"></span>
                 Local-first labels; you control sharing.
-              </div>
-              <div class="flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 shadow-sm shadow-amber/10">
-                <span class="h-2 w-2 rounded-full bg-amber"></span>
-                Placeholder Chrome link until listing is live.
               </div>
             </div>
           </div>
@@ -430,23 +426,17 @@ const latestRelease = await getLatestRelease();
         <div class="flex flex-col gap-6 px-8 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p class="text-sm uppercase tracking-[0.2em] text-amber">Get Yellowdex</p>
-            <h3 class="mt-2 font-display text-3xl text-white">Install on Chrome or join the list.</h3>
-            <p class="mt-2 text-sun/90">Chrome link is a placeholder while the store listing is under review.</p>
+            <h3 class="mt-2 font-display text-3xl text-white">Install Yellowdex on Chrome.</h3>
           </div>
           <div class="flex flex-col gap-3 sm:flex-row">
             <a
-              href="#"
-              aria-label="Install Yellowdex on Chrome (placeholder link)"
+              href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Install Yellowdex on Chrome"
               class="inline-flex items-center justify-center gap-2 rounded-full bg-sun px-6 py-3 text-base font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
             >
               Install on Chrome
-            </a>
-            <a
-              href="mailto:support@yellowdex.ai"
-              aria-label="Request early access to Yellowdex"
-              class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/40"
-            >
-              Request early access
             </a>
           </div>
         </div>
