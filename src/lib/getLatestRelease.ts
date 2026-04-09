@@ -1,6 +1,7 @@
 import { marked } from "marked";
 
 const API_URL = "https://api.github.com/repos/nbitslabs/yellowdex-ext/releases/latest";
+const ALL_RELEASES_URL = "https://api.github.com/repos/nbitslabs/yellowdex-ext/releases";
 
 export interface LatestRelease {
   tagName: string;
@@ -44,6 +45,46 @@ export async function getLatestRelease(): Promise<LatestRelease | null> {
   } catch (err) {
     console.error("getLatestRelease failed", err);
     return null;
+  }
+}
+
+export async function getAllReleases(): Promise<LatestRelease[]> {
+  try {
+    const headers: Record<string, string> = {
+      Accept: "application/vnd.github+json",
+      "User-Agent": "yellowdex-web",
+    };
+
+    const token = process.env.GITHUB_TOKEN || process.env.PUBLIC_GITHUB_TOKEN;
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const res = await fetch(`${ALL_RELEASES_URL}?per_page=100`, { headers });
+    if (!res.ok) return [];
+
+    const data = await res.json();
+    if (!Array.isArray(data)) return [];
+
+    const releases: LatestRelease[] = [];
+    for (const item of data) {
+      if (!item.tag_name) continue;
+      const publishedAt: string | null = item.published_at || item.created_at || null;
+      const bodyHtml = await marked.parse(item.body || "", { gfm: true, breaks: true });
+      releases.push({
+        tagName: item.tag_name,
+        name: item.name || item.tag_name,
+        htmlUrl: item.html_url || "",
+        publishedAt,
+        publishedOn: publishedAt ? formatDate(publishedAt) : null,
+        excerpt: makeExcerpt(item.body || ""),
+        bodyHtml,
+      });
+    }
+    return releases;
+  } catch (err) {
+    console.error("getAllReleases failed", err);
+    return [];
   }
 }
 
