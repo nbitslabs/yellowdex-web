@@ -22,6 +22,7 @@ const releases = await getAllReleases();
       </div>
       <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
         <a href="/#features" class="transition hover:text-ink">Features</a>
+        <a href="/releases/" class="transition hover:text-ink">Release notes</a>
         <a href="/#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="/#faq" class="transition hover:text-ink">FAQ</a>
         <a
@@ -61,14 +62,6 @@ const releases = await getAllReleases();
               </div>
               <h2 class="mt-3 font-display text-2xl text-charcoal">{release.name}</h2>
               <div class="prose prose-sm mt-4 max-w-none text-muted" set:html={release.bodyHtml} />
-              <a
-                href={release.htmlUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-amber transition hover:text-ink"
-              >
-                View on GitHub <span aria-hidden="true">&rarr;</span>
-              </a>
             </article>
           ))}
         </div>
