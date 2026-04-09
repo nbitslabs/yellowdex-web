@@ -74,7 +74,7 @@ const latestRelease = await getLatestRelease();
       </div>
       <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
         <a href="#features" class="transition hover:text-ink">Features</a>
-        <a href="#release" class="transition hover:text-ink">Release notes</a>
+        <a href="/releases/" class="transition hover:text-ink">Release notes</a>
         <a href="#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="#faq" class="transition hover:text-ink">FAQ</a>
         <a
@@ -346,6 +346,12 @@ const latestRelease = await getLatestRelease();
           <p class="max-w-2xl text-muted">
             Release notes are pulled from the Yellowdex extension repo whenever a new version ships.
           </p>
+          <a
+            href="/releases/"
+            class="inline-flex items-center gap-1 text-sm font-medium text-amber transition hover:text-ink"
+          >
+            View all release notes <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
 
         {latestRelease ? (
