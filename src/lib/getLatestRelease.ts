@@ -9,6 +9,7 @@ export interface LatestRelease {
   htmlUrl: string;
   publishedAt: string | null;
   publishedOn: string | null;
+  body: string;
   excerpt: string;
   bodyHtml: string;
 }
@@ -32,14 +33,16 @@ export async function getLatestRelease(): Promise<LatestRelease | null> {
     if (!data || !data.tag_name) return null;
 
     const publishedAt: string | null = data.published_at || data.created_at || null;
-    const bodyHtml = await marked.parse(data.body || "", { gfm: true, breaks: true });
+    const body: string = data.body || "";
+    const bodyHtml = await marked.parse(body, { gfm: true, breaks: true });
     return {
       tagName: data.tag_name,
       name: data.name || data.tag_name,
       htmlUrl: data.html_url || "",
       publishedAt,
       publishedOn: publishedAt ? formatDate(publishedAt) : null,
-      excerpt: makeExcerpt(data.body || ""),
+      body,
+      excerpt: makeExcerpt(body),
       bodyHtml,
     };
   } catch (err) {
@@ -70,14 +73,16 @@ export async function getAllReleases(): Promise<LatestRelease[]> {
     for (const item of data) {
       if (!item.tag_name) continue;
       const publishedAt: string | null = item.published_at || item.created_at || null;
-      const bodyHtml = await marked.parse(item.body || "", { gfm: true, breaks: true });
+      const body: string = item.body || "";
+      const bodyHtml = await marked.parse(body, { gfm: true, breaks: true });
       releases.push({
         tagName: item.tag_name,
         name: item.name || item.tag_name,
         htmlUrl: item.html_url || "",
         publishedAt,
         publishedOn: publishedAt ? formatDate(publishedAt) : null,
-        excerpt: makeExcerpt(item.body || ""),
+        body,
+        excerpt: makeExcerpt(body),
         bodyHtml,
       });
     }

@@ -9,9 +9,7 @@ export const GET: APIRoute = async () => {
 
 ${releases.map((r) => `### ${r.name} (${r.tagName})${r.publishedOn ? ` — ${r.publishedOn}` : ""}
 
-${r.excerpt}
-
-Full release notes: ${r.htmlUrl}`).join("\n\n")}
+${r.body}`).join("\n\n")}
 `
     : `## Releases
 

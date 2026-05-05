@@ -8,9 +8,7 @@ export const GET: APIRoute = async () => {
     ? releases.map((r) =>
         `## ${r.name} (${r.tagName})${r.publishedOn ? ` — ${r.publishedOn}` : ""}
 
-${r.excerpt}
-
-Full release notes: ${r.htmlUrl}`
+${r.body}`
       ).join("\n\n")
     : "No releases published yet.";
 
