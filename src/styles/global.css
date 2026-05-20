@@ -68,4 +68,14 @@
     height: auto;
     @apply inline-flex items-center gap-2 rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg outline-none ring-2 ring-amber;
   }
+
+  .comparison-slider {
+    touch-action: pan-y;
+  }
+
+  .comparison-range:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--color-sun);
+    outline-offset: -4px;
+  }
 }
