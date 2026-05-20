@@ -22,7 +22,7 @@ No releases published yet.
 
 ## What Yellowdex does
 
-Yellowdex floats an overlay beside any Ethereum address you encounter on the web. You can assign an entity name, add a label, apply color-coded tags, and save everything to a collection. Labels are local-first: you control what stays private and what gets shared.
+Yellowdex floats an overlay beside any Ethereum address you encounter on the web and surfaces known labels directly on explorer pages such as Etherscan. You can assign an entity name, add a label, apply color-coded tags, and save everything to a collection. Labels are local-first: you control what stays private and what gets shared.
 
 ## Key features
 
