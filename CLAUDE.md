@@ -30,7 +30,7 @@ Single-page static Astro site for the Yellowdex Chrome extension landing page, d
 
 Tailwind CSS v4 with custom theme in `global.css`:
 - Fonts: Sora (display), Space Grotesk (body) via Google Fonts
-- Colors: `sun` (#f8d23c), `amber`, `emerald` (#16a394), `ink` (#0f172a), `paper` (#fffaf2), `charcoal`
+- Colors: `sun` (#f4c451), `amber`, `emerald` (#16a394), `ink` (#0f172a), `paper` (#fffaf2), `panel` (#f7eec7), `charcoal`
 - Tailwind classes are used directly in Astro templates (no CSS modules)
 
 ### Deployment

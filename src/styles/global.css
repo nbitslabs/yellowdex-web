@@ -9,9 +9,9 @@
   --color-ink-soft: #1f2937;
   --color-muted: #475569;
   --color-paper: #fffaf2;
-  --color-panel: #fff6d9;
+  --color-panel: #f7eec7;
   --color-card: #ffffff;
-  --color-sun: #f8d23c;
+  --color-sun: #f4c451;
   --color-amber: #f59e0b;
   --color-emerald: #16a394;
   --color-charcoal: #0b1021;
@@ -25,7 +25,7 @@
 
   body {
     font-family: var(--font-sans);
-    background: radial-gradient(circle at 20% 20%, rgba(248, 210, 60, 0.18), transparent 35%),
+    background: radial-gradient(circle at 20% 20%, rgba(244, 196, 81, 0.18), transparent 35%),
       radial-gradient(circle at 80% 8%, rgba(22, 163, 148, 0.16), transparent 30%),
       linear-gradient(180deg, #fffdf7 0%, #fff7e1 60%, #fffaf2 100%);
     color: var(--color-ink);
