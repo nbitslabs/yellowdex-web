@@ -1,0 +1,171 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const assets = [
+  {
+    format: "SVG",
+    href: "/logo-yellowdex.svg",
+    fileName: "logo-yellowdex.svg",
+    description: "Vector logo for web, product UI, and layouts that need crisp scaling.",
+  },
+  {
+    format: "PNG",
+    href: "/logo-yellowdex.png",
+    fileName: "logo-yellowdex.png",
+    description: "Transparent 1024 x 1024 raster logo for previews, documents, and places that do not support SVG.",
+  },
+];
+---
+
+<BaseLayout
+  title="Brand Assets - Yellowdex"
+  description="Download official Yellowdex logo assets and review basic brand usage guidelines."
+>
+  <header class="sticky top-0 z-20 bg-paper/80 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+      <a href="/" class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
+        </div>
+      </a>
+      <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
+        <a href="/#features" class="transition hover:text-ink">Features</a>
+        <a href="/releases/" class="transition hover:text-ink">Release notes</a>
+        <a href="/#how-it-works" class="transition hover:text-ink">How it works</a>
+        <a href="/#faq" class="transition hover:text-ink">FAQ</a>
+        <a
+          href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Install Yellowdex on Chrome"
+          class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          Install on Chrome
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="px-6 py-12 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-muted transition hover:text-ink">
+        <span aria-hidden="true">&larr;</span> Back to Yellowdex
+      </a>
+
+      <section class="mt-8 grid gap-10 lg:grid-cols-[1fr_0.82fr] lg:items-center">
+        <div class="space-y-4">
+          <p class="pill">Brand assets</p>
+          <h1 class="font-display text-4xl font-semibold text-charcoal sm:text-5xl">Yellowdex brand guideline</h1>
+          <p class="max-w-2xl text-muted">
+            Thank you for your support and love for our work. Use these official assets when referencing Yellowdex in websites, docs,
+            decks, and app interfaces.
+          </p>
+        </div>
+        <div class="flex aspect-square items-center justify-center rounded-3xl border border-charcoal/10 bg-panel p-10 shadow-xl shadow-amber/10">
+          <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-full max-h-64 w-full max-w-64 object-contain" />
+        </div>
+      </section>
+
+      <section class="mt-14 border-t border-charcoal/10 pt-10">
+        <div class="grid gap-8 md:grid-cols-[0.72fr_1fr]">
+          <div>
+            <h2 class="font-display text-2xl text-charcoal">Usage guidelines</h2>
+            <p class="mt-3 text-muted">
+              Keep the mark intact and make the relationship clear. If you need a use case that is not covered here,
+              contact us first.
+            </p>
+          </div>
+          <div class="space-y-4 text-sm leading-6 text-muted">
+            <p><strong class="text-charcoal">Name:</strong> Yellowdex is one word and is spelled with a capital Y.</p>
+            <p><strong class="text-charcoal">Do:</strong> use the logo as provided, with enough clear space around the mark.</p>
+            <div>
+              <p><strong class="text-charcoal">Do:</strong> reference Yellowdex as follows:</p>
+              <ul class="mt-2 list-disc space-y-1 pl-8">
+                <li>Powered by Yellowdex</li>
+                <li>Data provided by Yellowdex</li>
+                <li>Source: Yellowdex</li>
+              </ul>
+            </div>
+            <p><strong class="text-charcoal">Do not:</strong> recolor, crop, skew, outline, or combine the logo with other marks.</p>
+            <p><strong class="text-charcoal">Do not:</strong> imply partnership, sponsorship, or endorsement unless Yellowdex has approved it.</p>
+            <p><strong class="text-charcoal">Do not:</strong> use the Yellowdex brand in conjunction with any illegal or unlawful activity, promotion, or product.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-14 border-t border-charcoal/10 pt-10">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 class="font-display text-2xl text-charcoal">Downloads</h2>
+            <p class="mt-2 text-muted">Choose SVG for vector use or PNG for broad compatibility.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          {assets.map((asset) => (
+            <article class="card p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber">{asset.format}</p>
+                  <h3 class="mt-2 font-display text-xl text-charcoal">{asset.fileName}</h3>
+                </div>
+                <img src="/logo-yellowdex.svg" alt="" class="h-12 w-12" />
+              </div>
+              <p class="mt-4 text-sm text-muted">{asset.description}</p>
+              <a
+                href={asset.href}
+                download={asset.fileName}
+                class="mt-5 inline-flex items-center justify-center rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                Download {asset.format}
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-14 rounded-3xl border border-charcoal/10 bg-charcoal px-6 py-8 text-sun shadow-2xl shadow-amber/20 sm:px-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm uppercase tracking-[0.2em] text-amber">Questions?</p>
+            <h2 class="mt-2 font-display text-2xl text-white">Ask before using the mark in a new context.</h2>
+          </div>
+          <a
+            href="mailto:support@yellowdex.ai"
+            class="inline-flex items-center justify-center rounded-full bg-sun px-5 py-3 text-sm font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
+          >
+            Contact Yellowdex
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="border-t border-charcoal/10 bg-paper/80 px-6 py-10 lg:px-8">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="text-sm text-ink-soft">Label every address. Turn chaos into context.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-muted">
+        <a href="/#features" class="hover:text-ink">Features</a>
+        <a href="/#how-it-works" class="hover:text-ink">How it works</a>
+        <a href="/#faq" class="hover:text-ink">FAQ</a>
+        <a href="/brand-assets/" class="hover:text-ink">Brand Assets</a>
+        <a href="mailto:support@yellowdex.ai" class="hover:text-ink">Contact</a>
+        <a href="/privacy-policy/" class="hover:text-ink">Privacy Policy</a>
+        <a href="/llms.txt" class="hover:text-ink">llms.txt</a>
+        <a href="https://x.com/yellowdex_ai" target="_blank" rel="noopener noreferrer" aria-label="Follow Yellowdex on X" class="hover:text-ink">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>

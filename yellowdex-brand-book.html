@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yellowdex — Brand Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Mirrors src/styles/global.css @theme tokens. */
+    --y-sun:       #F4C451;
+    --y-amber:     #F59E0B;
+    --y-emerald:   #16A394;
+    --y-ink:       #0F172A;
+    --y-ink-soft:  #1F2937;
+    --y-muted:     #475569;
+    --y-paper:     #FFFAF2;
+    --y-panel:     #F7EEC7;
+    --y-card:      #FFFFFF;
+    --y-charcoal:  #0B1021;
+    --y-logo-cream:#F7EEC7;
+    --y-logo-gold: #F4C451;
+
+    --y-yellow: var(--y-sun);
+    --y-slate: var(--y-ink);
+    --y-slate-2: var(--y-ink-soft);
+    --y-slate-3: var(--y-muted);
+    --y-cream: var(--y-paper);
+    --y-white: var(--y-card);
+    --y-yellow-soft: rgba(245, 158, 11, 0.15);
+    --y-yellow-glow: rgba(245, 158, 11, 0.30);
+
+    --radius-card: 24px;
+    --radius-chip: 999px;
+    --shadow-card: 0 10px 15px -3px rgba(245,158,11,.10), 0 4px 6px -4px rgba(245,158,11,.10);
+    --shadow-cta:  0 10px 15px -3px rgba(245,158,11,.30), 0 4px 6px -4px rgba(245,158,11,.30);
+
+    --font-display: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+    --font-body:    'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(244, 196, 81, 0.18), transparent 35%),
+      radial-gradient(circle at 80% 8%, rgba(22, 163, 148, 0.16), transparent 30%),
+      linear-gradient(180deg, #fffdf7 0%, #fff7e1 60%, #fffaf2 100%);
+    color: var(--y-slate);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); color: var(--y-charcoal); font-weight: 400; margin: 0 0 .4em; letter-spacing: 0; }
+  h1 { font-size: clamp(48px, 6vw, 76px); line-height: 1.05; font-weight: 400; }
+  h2 { font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; }
+  h3 { font-size: 22px; line-height: 1.3; }
+  h4 { font-size: 14px; text-transform: uppercase; letter-spacing: .12em; color: var(--y-slate-3); font-weight: 600; }
+  p { margin: 0 0 1em; color: var(--y-slate-3); max-width: 64ch; }
+  a { color: var(--y-ink); text-decoration: underline; text-decoration-color: var(--y-yellow); text-underline-offset: 3px; }
+  code, .mono { font-family: var(--font-mono); font-size: 13px; }
+
+  /* Layout */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: rgba(255,250,242,0.85);
+    border-bottom: 1px solid rgba(11,16,33,0.06);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .nav__logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; color: var(--y-ink); font-size: 18px; text-decoration: none; }
+  .nav__logo img { width: 28px; height: 28px; }
+  .nav__links { display: flex; gap: 22px; }
+  .nav__links a { font-size: 13px; font-weight: 500; color: var(--y-slate-2); text-decoration: none; }
+  .nav__links a:hover { color: var(--y-ink); }
+
+  main { padding: 80px 32px 120px; max-width: 1200px; margin: 0 auto; }
+  section { padding: 64px 0; border-bottom: 1px dashed rgba(11,16,33,0.08); }
+  section:last-child { border-bottom: none; }
+
+  /* HERO */
+  .hero { padding: 60px 0 80px; border-bottom: none; }
+  .hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--y-yellow-soft); padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--y-ink); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 28px; }
+  .hero__dot { width: 8px; height: 8px; background: var(--y-yellow); border-radius: 50%; }
+  .hero p.lede { font-size: 20px; max-width: 60ch; color: var(--y-slate-2); }
+  .hero__cta-row { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+  /* CTA-style elements (mirrors site button) */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; font-family: var(--font-body); font-weight: 600; font-size: 14px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+  .btn--primary { background: var(--y-charcoal); color: var(--y-yellow); box-shadow: var(--shadow-cta); }
+  .btn--primary:hover { transform: translateY(-2px); }
+  .btn--ghost { background: transparent; color: var(--y-ink); border: 1.5px solid var(--y-ink); }
+  .btn--sun { background: var(--y-sun); color: var(--y-charcoal); box-shadow: var(--shadow-cta); }
+
+  /* Card */
+  .card { background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-card); padding: 28px; box-shadow: var(--shadow-card); }
+  .grid { display: grid; gap: 20px; }
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 800px) {
+    .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+  }
+
+  /* COLOR SWATCHES */
+  .swatch { border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,.06); background: var(--y-white); display: flex; flex-direction: column; }
+  .swatch__chip { height: 130px; display: flex; align-items: flex-end; padding: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--y-ink); }
+  .swatch__chip--dark { color: var(--y-sun); }
+  .swatch__meta { padding: 14px 16px; font-size: 13px; }
+  .swatch__name { font-family: var(--font-display); font-weight: 600; color: var(--y-ink); margin: 0; }
+  .swatch__hex { font-family: var(--font-mono); color: var(--y-slate-3); margin: 2px 0 0; }
+  .swatch__use { color: var(--y-slate-3); margin-top: 6px; font-size: 12px; }
+
+  /* TYPE SAMPLES */
+  .type-row { padding: 24px 0; border-top: 1px solid rgba(11,16,33,.06); display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: baseline; }
+  .type-row:first-of-type { border-top: none; }
+  .type-row__meta { font-family: var(--font-mono); font-size: 11px; color: var(--y-slate-3); text-transform: uppercase; letter-spacing: .08em; }
+  .type-row__sample { color: var(--y-ink); }
+  .display-xl { font-family: var(--font-display); font-size: 60px; line-height: 1.1; font-weight: 400; letter-spacing: 0; }
+  .display-lg { font-family: var(--font-display); font-size: 40px; line-height: 1.15; font-weight: 400; }
+  .display-md { font-family: var(--font-display); font-size: 28px; line-height: 1.25; font-weight: 600; }
+  .body-lg    { font-family: var(--font-body); font-size: 20px; line-height: 1.5; color: var(--y-slate-2); }
+  .body-md    { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--y-slate); }
+  .body-sm    { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--y-slate-3); }
+  .mono-md    { font-family: var(--font-mono); font-size: 14px; color: var(--y-ink); background: var(--y-yellow-soft); padding: 4px 10px; border-radius: 6px; display: inline-block; }
+
+  /* LOGO BLOCK */
+  .logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .logo-grid { grid-template-columns: 1fr; } }
+  .logo-tile { aspect-ratio: 4/3; border-radius: var(--radius-card); display: flex; align-items: center; justify-content: center; padding: 32px; border: 1px solid rgba(0,0,0,.06); }
+  .logo-tile img { max-width: 60%; max-height: 60%; }
+  .logo-tile--cream { background: var(--y-cream); }
+  .logo-tile--white { background: var(--y-white); }
+  .logo-tile--ink { background: var(--y-charcoal); }
+  .logo-tile__caption { font-family: var(--font-mono); font-size: 11px; color: var(--y-slate-3); margin-top: 8px; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* VOICE */
+  .voice { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .voice { grid-template-columns: 1fr; } }
+  .voice__card { padding: 28px; border-radius: var(--radius-card); border: 1px solid; }
+  .voice__do   { border-color: var(--y-yellow); background: var(--y-yellow-soft); }
+  .voice__dont { border-color: rgba(11,16,33,.15); background: rgba(11,16,33,.04); }
+  .voice__label { font-family: var(--font-display); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px; }
+  .voice ul { margin: 0; padding-left: 18px; color: var(--y-slate-2); }
+  .voice li { margin-bottom: 10px; }
+  .voice li::marker { color: var(--y-amber); }
+
+  /* TOKEN TABLE */
+  .tokens { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 13px; }
+  .tokens th, .tokens td { text-align: left; padding: 12px 16px; border-bottom: 1px solid rgba(11,16,33,.06); }
+  .tokens th { font-family: var(--font-body); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--y-slate-3); font-weight: 600; }
+  .tokens td:first-child { color: var(--y-ink); font-weight: 500; }
+  .tokens td:last-child { color: var(--y-slate-3); }
+
+  /* CTA CHIPS */
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; font-family: var(--font-body); letter-spacing: .04em; text-transform: uppercase; }
+  .chip--yellow { background: var(--y-yellow); color: var(--y-ink); }
+  .chip--ink    { background: var(--y-ink);    color: var(--y-yellow); }
+  .chip--soft   { background: var(--y-yellow-soft); color: var(--y-ink); }
+
+  /* DIVIDER */
+  .footer { padding: 40px 0 0; text-align: center; color: var(--y-slate-3); font-size: 13px; }
+  .footer__mark { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 600; color: var(--y-ink); }
+  .footer__mark img { width: 18px; height: 18px; }
+
+  /* helper */
+  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 4px 12px; border-radius: 999px; background: rgba(245,158,11,.10); color: var(--y-amber); font-size: 12px; font-weight: 600; font-family: var(--font-body); letter-spacing: .025em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav__logo">
+    <img src="public/logo-yellowdex.svg" alt="">
+    Yellowdex Brand Book
+  </a>
+  <div class="nav__links">
+    <a href="#mission">Mission</a>
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#type">Type</a>
+    <a href="#voice">Voice</a>
+    <a href="#ui">UI</a>
+    <a href="#tokens">Tokens</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero__eyebrow"><span class="hero__dot"></span> v1.0 — Brand Book</span>
+    <h1>Label every address.<br/>Turn chaos into context.</h1>
+    <p class="lede">The visual language of Yellowdex — distilled. Built for a product that makes the unreadable readable.</p>
+    <div class="hero__cta-row">
+      <a class="btn btn--primary" href="#color">Open palette →</a>
+      <a class="btn btn--ghost" href="https://yellowdex.ai" target="_blank">Visit yellowdex.ai</a>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section id="mission">
+    <h4>01 — Mission &amp; personality</h4>
+    <h2>Make on-chain context feel obvious.</h2>
+    <p>Yellowdex turns walls of anonymous Ethereum-style addresses into labeled context wherever you browse. Local-first. Quietly powerful. Built for people who care enough to read the addresses.</p>
+
+    <div class="grid grid--3" style="margin-top: 36px;">
+      <div class="card">
+        <h4>Tone</h4>
+        <h3>Calm &amp; precise.</h3>
+        <p>We don't shout. We resolve ambiguity. Short, declarative, written like an indexer log that became a sentence.</p>
+      </div>
+      <div class="card">
+        <h4>Posture</h4>
+        <h3>Power user energy.</h3>
+        <p>We assume the reader knows what an address is. We respect their time. No 101 hand-holding unless asked.</p>
+      </div>
+      <div class="card">
+        <h4>Promise</h4>
+        <h3>Private by default.</h3>
+        <p>Labels are local-first. Sync, export, and sharing are user-controlled. Every visual choice should reinforce that quiet trust.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section id="logo">
+    <h4>02 — Logo</h4>
+    <h2>The rounded Y mark.</h2>
+    <p>A label sticker, a highlighter swipe, a token of attention. Use the bundled <span class="mono-md">public/logo-yellowdex.svg</span> mark, served by the site as <span class="mono-md">/logo-yellowdex.svg</span>, on paper, card white, or charcoal. Never place it on competing yellows or busy photography.</p>
+
+    <div class="logo-grid" style="margin-top: 36px;">
+      <div>
+        <div class="logo-tile logo-tile--cream"><img src="public/logo-yellowdex.svg" alt="Yellowdex logo on paper"></div>
+        <p class="logo-tile__caption">Paper — preferred</p>
+      </div>
+      <div>
+        <div class="logo-tile logo-tile--white"><img src="public/logo-yellowdex.svg" alt="Yellowdex logo on card white"></div>
+        <p class="logo-tile__caption">Card white — secondary</p>
+      </div>
+      <div>
+        <div class="logo-tile logo-tile--ink"><img src="public/logo-yellowdex.svg" alt="Yellowdex logo on charcoal"></div>
+        <p class="logo-tile__caption">Charcoal — high contrast</p>
+      </div>
+    </div>
+
+    <div class="grid grid--2" style="margin-top: 32px;">
+      <div class="card">
+        <h4>Clearspace</h4>
+        <p>Always leave at least <span class="mono-md">1× the mark's height</span> of breathing room on all sides. Never crop, rotate, or skew.</p>
+      </div>
+      <div class="card">
+        <h4>Minimum size</h4>
+        <p>Don't render the mark below <span class="mono-md">20×20px</span> on screen. The production header and footer use <span class="mono-md">40×40px</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section id="color">
+    <h4>03 — Color</h4>
+    <h2>Sun, charcoal, and the space between.</h2>
+    <p>One signature UI yellow. One deep CTA charcoal. A warm paper background that keeps the system from feeling sterile. Emerald appears only as a supporting status/glow accent.</p>
+
+    <h3 style="margin-top: 32px;">Primary</h3>
+    <div class="grid grid--3" style="margin-top: 16px;">
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #F4C451;">#F4C451</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Sun</p>
+          <p class="swatch__hex">rgb(244, 196, 81)</p>
+          <p class="swatch__use">Primary UI yellow, reused from the bundled logo gold fill. CTA text on charcoal, comparison handle, selection color, key highlights.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip swatch__chip--dark" style="background: #0B1021;">#0B1021</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Charcoal</p>
+          <p class="swatch__hex">rgb(11, 16, 33)</p>
+          <p class="swatch__use">Primary CTA surface, dark install section, hero headings, skip-link surface.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #FFFAF2;">#FFFAF2</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Paper</p>
+          <p class="swatch__hex">rgb(255, 250, 242)</p>
+          <p class="swatch__use">Default page background. Warm enough to feel human, neutral enough to disappear.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">Accent &amp; text</h3>
+    <div class="grid grid--4" style="margin-top: 16px;">
+      <div class="swatch">
+        <div class="swatch__chip swatch__chip--dark" style="background: #F59E0B;">#F59E0B</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Amber</p>
+          <p class="swatch__hex">rgb(245, 158, 11)</p>
+          <p class="swatch__use">Secondary accent. Pills, links, metadata emphasis, warm glows, shadows.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #0F172A; color: #F4C451;">#0F172A</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Ink</p>
+          <p class="swatch__hex">rgb(15, 23, 42)</p>
+          <p class="swatch__use">Default text and body copy on light backgrounds.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #475569; color: #FFFAF2;">#475569</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Muted</p>
+          <p class="swatch__hex">rgb(71, 85, 105)</p>
+          <p class="swatch__use">Supporting text, captions, descriptions.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #FFFFFF;">#FFFFFF</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Card</p>
+          <p class="swatch__hex">rgb(255, 255, 255)</p>
+          <p class="swatch__use">Cards, modals, and surfaces on paper background.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #F7EEC7;">#F7EEC7</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Panel</p>
+          <p class="swatch__hex">rgb(247, 238, 199)</p>
+          <p class="swatch__use">Warm panel color from the Tailwind theme, reused from the bundled logo cream fill.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__chip" style="background: #16A394; color: #FFFFFF;">#16A394</div>
+        <div class="swatch__meta">
+          <p class="swatch__name">Emerald</p>
+          <p class="swatch__hex">rgb(22, 163, 148)</p>
+          <p class="swatch__use">Status dot, trust card tint, background glow. Use sparingly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 32px;">
+      <h4>Color rules</h4>
+      <p style="color: var(--y-slate-2); max-width: 70ch;">
+        <strong>Sun is the logo gold reused as the UI punctuation.</strong> Keep sun for high-contrast CTAs and key highlights, amber for pills and links, emerald only where it signals status or trust, and panel for warm decorative surfaces that should echo the logo cream.
+      </p>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section id="type">
+    <h4>04 — Typography</h4>
+    <h2>Sora for voice. Space Grotesk for hands.</h2>
+    <p>A geometric display face for headlines that announce the brand. A grotesque for everything that does the work — UI, body, captions, and supporting metadata.</p>
+
+    <div class="grid grid--2" style="margin-top: 24px;">
+      <div class="card">
+        <h4>Display</h4>
+        <h3 style="font-family: var(--font-display); font-size: 56px; font-weight: 400;">Sora</h3>
+        <p>Imported weights: 400 · 600 · 700. Use 400 for hero scale, 600 for section emphasis, and 700 only when matching badge or OG artwork weight.</p>
+      </div>
+      <div class="card">
+        <h4>Body &amp; UI</h4>
+        <h3 style="font-family: var(--font-body); font-size: 32px; font-weight: 500;">Space Grotesk</h3>
+        <p>Imported weights: 400 · 500 · 600. Default body size 16px. Use 500/600 for nav and buttons, 400 for prose, and 14px small text for captions and meta.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 36px;">
+      <div class="type-row">
+        <div class="type-row__meta">Display XL · Sora 60/66 · 400</div>
+        <div class="type-row__sample display-xl">Label chaos.<br/>Find context.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Display L · Sora 40/46 · 400</div>
+        <div class="type-row__sample display-lg">Built for power labelers.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Display M · Sora 28/35 · 600</div>
+        <div class="type-row__sample display-md">Spot an address. Label it in a tap.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Body L · Space Grotesk 20/30 · 400</div>
+        <div class="type-row__sample body-lg">Local-first labels you control. Sync only when you opt in. Search with prefix syntax: <span class="mono-md">a:0x123</span> for addresses, <span class="mono-md">l:exchange</span> for labels.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Body M · Space Grotesk 16/26 · 400</div>
+        <div class="type-row__sample body-md">Yellowdex lives quietly in your browser. It reads addresses on the pages you visit and lets you tag them as you go — exchanges, friends, suspicious wallets, your own multisigs — building a personal index that follows you across Etherscan, X, and Discord.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Body S · Space Grotesk 14/21 · 400</div>
+        <div class="type-row__sample body-sm">Caption text, metadata, helper copy. Use sparingly. Pair with muted slate.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row__meta">Code · system mono 14 · 500</div>
+        <div class="type-row__sample"><span class="mono-md">0x4a3b...c0ff</span> &nbsp; <span class="mono-md">a:tornado</span> &nbsp; <span class="mono-md">l:exchange</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section id="voice">
+    <h4>05 — Voice &amp; tone</h4>
+    <h2>Write like an indexer that learned manners.</h2>
+    <p>Plain words. Active voice. No hype. We earn trust by being correct first and clever second.</p>
+
+    <div class="voice" style="margin-top: 32px;">
+      <div class="voice__card voice__do">
+        <span class="voice__label">✓ Do</span>
+        <ul>
+          <li><strong>Lead with what it does.</strong> "Label every address." Not "Revolutionize your on-chain experience."</li>
+          <li><strong>Short sentences.</strong> Five words good. Ten words fine. Twenty words? Cut it.</li>
+          <li><strong>Concrete examples.</strong> Show <span class="mono-md">a:0x4a3b…</span>, not "advanced search syntax."</li>
+          <li><strong>Quiet confidence.</strong> Yellowdex doesn't need to convince — it just shows.</li>
+          <li><strong>Respect privacy in every sentence.</strong> Local-first. You control sync, exports, and sharing.</li>
+        </ul>
+      </div>
+      <div class="voice__card voice__dont">
+        <span class="voice__label">✗ Don't</span>
+        <ul>
+          <li><strong>No buzzwords.</strong> Avoid: revolutionary, seamless, game-changing, unlock, leverage, synergy.</li>
+          <li><strong>No emoji-stuffed headlines.</strong> One emoji as punctuation, max. Never as a substitute for a verb.</li>
+          <li><strong>No "we built this for you."</strong> Just describe what it is.</li>
+          <li><strong>No fake urgency.</strong> No "Don't miss out!" or "Limited time!" The product earns attention by being useful.</li>
+          <li><strong>No address shaming.</strong> We don't mock degens. Yellowdex helps everyone read better, including ourselves.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 32px;">
+      <h4>Sample headlines</h4>
+      <div style="display: grid; gap: 16px; margin-top: 12px;">
+        <p style="color: var(--y-ink); font-family: var(--font-display); font-size: 22px; line-height: 1.3; margin: 0;">"Label every address. Turn chaos into context."</p>
+        <p style="color: var(--y-ink); font-family: var(--font-display); font-size: 22px; line-height: 1.3; margin: 0;">"Built for power labelers."</p>
+        <p style="color: var(--y-ink); font-family: var(--font-display); font-size: 22px; line-height: 1.3; margin: 0;">"Dex-level context in three steps."</p>
+        <p style="color: var(--y-ink); font-family: var(--font-display); font-size: 22px; line-height: 1.3; margin: 0;">"Local-first labels; you control sharing."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI COMPONENTS -->
+  <section id="ui">
+    <h4>06 — UI elements</h4>
+    <h2>Components, examples.</h2>
+
+    <h3 style="margin-top: 28px;">Buttons</h3>
+    <div class="card" style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+      <a href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha" class="btn btn--primary">Install on Chrome -></a>
+      <a href="#ui" class="btn btn--sun">Install on Chrome</a>
+      <a href="#" class="btn btn--ghost">See how it works</a>
+      <span class="body-sm" style="margin-left: auto;">Header/hero CTA: charcoal bg + sun text. Final install CTA: sun bg + charcoal text. Secondary: white or transparent surface.</span>
+    </div>
+
+    <h3 style="margin-top: 32px;">Chips &amp; tags</h3>
+    <div class="card" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+      <span class="chip chip--yellow">Beta</span>
+      <span class="chip chip--ink">v0.1.0</span>
+      <span class="chip chip--soft">Privacy-first</span>
+      <span class="pill">● local-only</span>
+      <span class="body-sm" style="margin-left: auto;">Rounded 999px. Tight padding. Body font for labels; system mono only for code-like values.</span>
+    </div>
+
+    <h3 style="margin-top: 32px;">Cards</h3>
+    <div class="grid grid--2">
+      <div class="card">
+        <h4>Card surface</h4>
+        <h3>Card white at 90% opacity</h3>
+        <p>Tailwind <span class="mono-md">rounded-3xl</span>, <span class="mono-md">border-black/5</span>, <span class="mono-md">bg-card/90</span>, and <span class="mono-md">shadow-amber/10</span> keep cards soft on paper.</p>
+      </div>
+      <div class="card">
+        <h4>Hover behavior</h4>
+        <h3>Lift +2px, not +10px</h3>
+        <p>Restraint. Yellowdex isn't a game UI. Subtle elevation signals interactivity without being theatrical.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 32px;">Address treatment</h3>
+    <div class="card">
+      <p style="margin-bottom: 16px;">When showing an address inline, use system mono + a soft accent chip. Truncate as <span class="mono-md">0x4a3b...c0ff</span> unless the full hash is critical.</p>
+      <p style="font-family: var(--font-body); color: var(--y-ink); margin: 0;">
+        Sent <strong>2,450 USDC</strong> to <span class="mono-md">0xd8dA…6045</span> <span class="chip chip--yellow" style="margin-left: 6px;">vitalik.eth</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- DESIGN TOKENS -->
+  <section id="tokens">
+    <h4>07 — Design tokens</h4>
+    <h2>Copy &amp; paste.</h2>
+    <p>The exact values defined in <span class="mono-md">src/styles/global.css</span>. Ship-ready for Figma, Tailwind v4, or CSS-vars.</p>
+
+    <div class="card" style="padding: 8px; margin-top: 24px;">
+      <table class="tokens">
+        <thead>
+          <tr><th>Token</th><th>Value</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>--color-sun</td><td>#F4C451</td><td>Primary UI yellow, reused from logo gold</td></tr>
+          <tr><td>--color-amber</td><td>#F59E0B</td><td>Accent, links, shadows, pills</td></tr>
+          <tr><td>--color-emerald</td><td>#16A394</td><td>Status and secondary glow</td></tr>
+          <tr><td>--color-ink</td><td>#0F172A</td><td>Default body text</td></tr>
+          <tr><td>--color-ink-soft</td><td>#1F2937</td><td>Nav and secondary text</td></tr>
+          <tr><td>--color-muted</td><td>#475569</td><td>Captions and supporting copy</td></tr>
+          <tr><td>--color-paper</td><td>#FFFAF2</td><td>Page background</td></tr>
+          <tr><td>--color-panel</td><td>#F7EEC7</td><td>Warm panel color, reused from logo cream</td></tr>
+          <tr><td>--color-card</td><td>#FFFFFF</td><td>Card surface</td></tr>
+          <tr><td>--color-charcoal</td><td>#0B1021</td><td>CTA surface and dark sections</td></tr>
+          <tr><td>logo fill</td><td>#F4C451 / #F7EEC7</td><td>Bundled SVG mark colors</td></tr>
+          <tr><td>--font-display</td><td>'Sora', 'Space Grotesk', system-ui</td><td>Headings and hero copy</td></tr>
+          <tr><td>--font-sans</td><td>'Space Grotesk', system-ui</td><td>UI and prose</td></tr>
+          <tr><td>font-mono</td><td>Tailwind/system default</td><td>Code snippets and addresses only</td></tr>
+          <tr><td>rounded-3xl</td><td>24px</td><td>Cards, hero media, install section</td></tr>
+          <tr><td>rounded-full</td><td>999px</td><td>Buttons, chips, pills</td></tr>
+          <tr><td>shadow-amber/10</td><td>rgba(245,158,11,.10)</td><td>Card ambient shadow</td></tr>
+          <tr><td>shadow-amber/30</td><td>rgba(245,158,11,.30)</td><td>Primary CTA glow</td></tr>
+          <tr><td>letter-spacing (display)</td><td>0</td><td>No custom tracking on display headings</td></tr>
+          <tr><td>line-height (display)</td><td>tight / 1.15–1.25</td><td>Tighter as size grows</td></tr>
+          <tr><td>line-height (body)</td><td>1.6</td><td>Default prose</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="footer__mark">
+      <img src="public/logo-yellowdex.svg" alt="">
+      Yellowdex Brand Book · v1.0
+    </div>
+    <p style="margin: 12px auto 0; max-width: 50ch;">Living document. Pull requests welcome. When in doubt: sun is precious, charcoal is structural, paper is breath.</p>
+  </div>
+
+</main>
+
+</body>
+</html>
