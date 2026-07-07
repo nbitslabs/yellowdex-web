@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yellowdex.ai/sitemap.xml
+Sitemap: https://yellowdex.ai/sitemap-index.xml
