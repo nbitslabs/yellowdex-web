@@ -16,15 +16,23 @@ No test suite or linter is configured. Use `pnpm build` to validate changes.
 
 ## Architecture
 
-Single-page static Astro site for the Yellowdex Chrome extension landing page, deployed to GitHub Pages at yellowdex.ai.
+Static Astro site for the Yellowdex Chrome extension, deployed to GitHub Pages at yellowdex.ai. Public page routes are `/` (`index.astro`), `/releases`, `/privacy-policy`, and `/brand-assets`; machine-readable endpoints are `/llms.txt`, `/releases.md`, and `/privacy-policy.md`.
 
 ### Key files
 
-- `src/pages/index.astro` — The entire landing page (hero, features, FAQ, CTA). Content is hardcoded as JS objects (steps, features, FAQs), not in content collections.
+- `src/pages/index.astro` — Home page (hero, features, FAQ, CTA). Content is hardcoded as JS objects (steps, features, FAQs), not in content collections.
 - `src/layouts/BaseLayout.astro` — Root HTML layout with SEO meta tags, OG tags, and font imports.
 - `src/styles/global.css` — Tailwind v4 theme tokens (colors, fonts) and custom component classes (`.card`, `.pill`).
 - `src/lib/getLatestRelease.ts` — Fetches latest release from `nbitslabs/yellowdex-ext` GitHub repo at build time. Supports `GITHUB_TOKEN` or `PUBLIC_GITHUB_TOKEN` env var for rate limiting.
 - `astro.config.mjs` — Astro config with Tailwind v4 via `@tailwindcss/vite`.
+
+### Multi-surface sync
+
+When changing or adding a page, manually update `public/sitemap.xml`, the `src/pages/llms.txt.ts` page registry, and the duplicated footer/navigation chrome. Keep `src/pages/privacy-policy.astro` and `src/pages/privacy-policy.md.ts` semantically identical.
+
+### Upstream release projection
+
+Release content is fetched at build time from `nbitslabs/yellowdex-ext` by `src/lib/getLatestRelease.ts`. Fetch failures return `null` or `[]` and do not fail the build. Upstream Markdown is rendered with `marked` and injected with `set:html` without a sanitizer. `deploy.yml` supplies `EXT_RELEASE_TOKEN` as `PUBLIC_GITHUB_TOKEN`; `ci.yml` does not, so release content differs between CI and production.
 
 ### Styling
 
@@ -37,17 +45,17 @@ Tailwind CSS v4 with custom theme in `global.css`:
 
 Two GitHub Actions workflows handle CI and deployment:
 
-- **ci.yml** — Validates builds on every push and PR to main. Uploads build artifacts for potential reuse. This check must pass before PRs can be merged (enforced via branch protection).
+- **ci.yml** — Validates builds on pushes to `main` and on pull requests. It uploads a build artifact, but deployment does not consume it. The repository contains `.github/BRANCH_PROTECTION.md` setup instructions only; remote branch-protection enforcement is unverified from the tree.
 
-- **deploy.yml** — Deploys to GitHub Pages at yellowdex.ai on push to main, nightly at 5 AM UTC, manual dispatch, or `ext-release-published` repository dispatch from the extension repo.
+- **deploy.yml** — Independently deploys to GitHub Pages at yellowdex.ai on push to `main`, nightly at 5 AM UTC, manual dispatch, or `ext-release-published` repository dispatch from the extension repo. It rebuilds from scratch and does not consume CI's artifact.
 
-Merging a PR to main triggers CI validation and then automatic deployment. No versioning or release tagging is used.
+On pushes to `main`, CI and deployment trigger independently; CI does not gate deployment. No versioning or release tagging is used.
 
 See `.github/BRANCH_PROTECTION.md` for setup instructions.
 
-### Extension detection
+### Comparison slider
 
-The landing page detects the Yellowdex extension by checking for `#eth-labeler-fontawesome` (a style element the extension injects). When detected, the overlay preview switches from a static mockup to a live interactive view.
+The home-page preview uses the `data-comparison-slider` control in `src/pages/index.astro`. The `#eth-labeler-fontawesome` detection block still targets non-existent `overlay-*` IDs; it is dead code and should be removed rather than used as an extension integration point.
 
 ## Git Commit Guidelines
 
@@ -75,35 +83,10 @@ Examples:
 - Write descriptive commit messages explaining the "why", not just the "what"
 
 ### Co-author Attribution
-**Mandatory**: All commits where OpenCode contributes code, documentation, or significant changes must include OpenCode as co-author:
 
-```bash
-git commit -m "feat: add new feature
-
-Co-authored-by: OpenCode Agent <agent@opencode.ai>"
-```
-
-This preserves your GPG signature as primary author while acknowledging AI contributions in GitHub's contributor tracking.
+Do not require a specific AI-tool co-author. If a commit needs attribution, name the actual contributing tool, such as Claude Code or Codex.
 
 ## Pull Request Guidelines
-
-### PR Title Format
-PR titles must use conventional commits format with a prefix:
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `chore:` - Maintenance tasks, dependencies, tooling
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring without functional changes
-- `test:` - Adding or updating tests
-- `perf:` - Performance improvements
-- `security:` - Security fixes
-
-**Important**: PR titles are user-facing and included in release notes. The description after the prefix must be user-facing ready.
-
-Examples:
-- `feat: add FAQ section with accordion component`
-- `fix: resolve overlay badge overlap at narrow viewports`
-- `chore: upgrade Astro and Tailwind dependencies`
 
 ### PR Description
 All PRs must follow the template in `.github/PULL_REQUEST_TEMPLATE.md`. Include:
