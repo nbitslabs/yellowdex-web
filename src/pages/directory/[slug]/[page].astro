@@ -1,0 +1,26 @@
+---
+import CollectionDirectoryPage from "../../../components/CollectionDirectoryPage.astro";
+import { getDirectory } from "../../../lib/getDirectory";
+
+export async function getStaticPaths() {
+  const entries = await getDirectory();
+  const paths = [];
+  for (const entry of entries) {
+    const others = entries
+      .filter((e) => e.collection.slug !== entry.collection.slug)
+      .map((e) => e.collection);
+    // Page 1 is served from index.astro; only pages 2..N are generated here.
+    for (let page = 2; page <= entry.totalPages; page++) {
+      paths.push({
+        params: { slug: entry.collection.slug, page: String(page) },
+        props: { entry, page, others },
+      });
+    }
+  }
+  return paths;
+}
+
+const { entry, page, others } = Astro.props;
+---
+
+<CollectionDirectoryPage entry={entry} page={page} others={others} />

@@ -1,0 +1,21 @@
+---
+import CollectionDirectoryPage from "../../../components/CollectionDirectoryPage.astro";
+import { getDirectory } from "../../../lib/getDirectory";
+
+export async function getStaticPaths() {
+  const entries = await getDirectory();
+  return entries.map((entry) => ({
+    params: { slug: entry.collection.slug },
+    props: {
+      entry,
+      others: entries
+        .filter((e) => e.collection.slug !== entry.collection.slug)
+        .map((e) => e.collection),
+    },
+  }));
+}
+
+const { entry, others } = Astro.props;
+---
+
+<CollectionDirectoryPage entry={entry} page={1} others={others} />
