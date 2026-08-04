@@ -168,7 +168,6 @@ const breadcrumbLd = {
                 <th scope="col" class="px-4 py-3 font-semibold">Address</th>
                 <th scope="col" class="px-4 py-3 font-semibold">Label</th>
                 <th scope="col" class="px-4 py-3 font-semibold">Entity</th>
-                <th scope="col" class="px-4 py-3 font-semibold">Network</th>
               </tr>
             </thead>
             <tbody>
@@ -179,9 +178,6 @@ const breadcrumbLd = {
                   </td>
                   <td class="px-4 py-3 text-ink">{row.label || "—"}</td>
                   <td class="px-4 py-3 text-muted">{row.entity || "—"}</td>
-                  <td class="px-4 py-3 text-muted whitespace-nowrap">
-                    {row.network ? row.network.name || row.network.shortName || "—" : "—"}
-                  </td>
                 </tr>
               ))}
             </tbody>
