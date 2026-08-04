@@ -46,6 +46,7 @@ ${releaseSection}
 ## Pages
 
 - [Home](https://yellowdex.ai/)
+- [Address Directory](https://yellowdex.ai/directory/) — public collections of labeled crypto addresses
 - [Brand Assets](https://yellowdex.ai/brand-assets/)
 - [Release Notes](https://yellowdex.ai/releases/) — [Markdown](https://yellowdex.ai/releases.md)
 - [Privacy Policy](https://yellowdex.ai/privacy-policy/) — [Markdown](https://yellowdex.ai/privacy-policy.md)
