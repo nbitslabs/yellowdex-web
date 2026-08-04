@@ -16,7 +16,7 @@ No test suite or linter is configured. Use `pnpm build` to validate changes.
 
 ## Architecture
 
-Static Astro site for the Yellowdex Chrome extension, deployed to GitHub Pages at yellowdex.ai. Public page routes are `/` (`index.astro`), `/releases`, `/privacy-policy`, and `/brand-assets`; machine-readable endpoints are `/llms.txt`, `/releases.md`, and `/privacy-policy.md`.
+Static Astro site for the Yellowdex Chrome extension, deployed to GitHub Pages at yellowdex.ai. Public page routes are `/` (`index.astro`), `/releases`, `/privacy-policy`, `/brand-assets`, and the `/directory` address directory; machine-readable endpoints are `/llms.txt`, `/releases.md`, `/privacy-policy.md`, and `/directory/sitemap.xml`.
 
 ### Key files
 
@@ -24,6 +24,9 @@ Static Astro site for the Yellowdex Chrome extension, deployed to GitHub Pages a
 - `src/layouts/BaseLayout.astro` — Root HTML layout with SEO meta tags, OG tags, and font imports.
 - `src/styles/global.css` — Tailwind v4 theme tokens (colors, fonts) and custom component classes (`.card`, `.pill`).
 - `src/lib/getLatestRelease.ts` — Fetches latest release from `nbitslabs/yellowdex-ext` GitHub repo at build time. Supports `GITHUB_TOKEN` or `PUBLIC_GITHUB_TOKEN` env var for rate limiting.
+- `src/lib/getDirectory.ts` — Fetches the curated owner's public collections and up to 500 addresses each from the Yellowdex public API (`sync.yellowdex.ai/api/v1`) at build time. Results are memoized per build. Owner handle defaults to `yellowdex`, overridable via `PUBLIC_DIRECTORY_OWNER`.
+- `src/components/CollectionDirectoryPage.astro` — Shared renderer for a single collection page: title, address/label/entity/network table (100 rows), other-collection links, pagination controls, and per-page SEO (`rel=prev/next`, `CollectionPage`/`BreadcrumbList` JSON-LD via BaseLayout's `head` slot).
+- `src/pages/directory/` — `index.astro` lists all public collections; `[slug]/index.astro` is a collection's page 1 (canonical); `[slug]/[page].astro` is pages 2..N; `sitemap.xml.ts` is the dynamic per-page sitemap.
 - `astro.config.mjs` — Astro config with Tailwind v4 via `@tailwindcss/vite`.
 
 ### Multi-surface sync
@@ -33,6 +36,10 @@ When changing or adding a page, manually update `public/sitemap.xml`, the `src/p
 ### Upstream release projection
 
 Release content is fetched at build time from `nbitslabs/yellowdex-ext` by `src/lib/getLatestRelease.ts`. Fetch failures return `null` or `[]` and do not fail the build. Upstream Markdown is rendered with `marked` and injected with `set:html` without a sanitizer. `deploy.yml` supplies `EXT_RELEASE_TOKEN` as `PUBLIC_GITHUB_TOKEN`; `ci.yml` does not, so release content differs between CI and production.
+
+### Directory projection
+
+The `/directory` pages are projected at build time from the Yellowdex public API by `src/lib/getDirectory.ts` (`getStaticPaths` in the route files). Each public collection surfaces at most 500 addresses (the API page cap), paginated 100 per page. Fetch failures return `[]` and do not fail the build — the directory index then renders an empty state and no per-collection pages are generated. Because the page set is data-driven, `/directory/sitemap.xml` is generated dynamically (and referenced from `robots.txt`) rather than hand-maintained in `public/sitemap.xml`.
 
 ### Styling
 

@@ -1,0 +1,140 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDirectory, collectionPath, safeJsonLd } from "../../lib/getDirectory";
+
+const entries = await getDirectory();
+const collections = entries.map((e) => e.collection);
+const totalAddresses = collections.reduce((sum, c) => sum + c.addressCount, 0);
+
+const fmt = new Intl.NumberFormat("en");
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Yellowdex address directory",
+  description:
+    "Browse public collections of labeled crypto addresses, organized by entity and network.",
+  url: Astro.site ? new URL("/directory/", Astro.site).toString() : "/directory/",
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: collections.length,
+    itemListElement: collections.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      url: Astro.site
+        ? new URL(collectionPath(c.slug, 1), Astro.site).toString()
+        : collectionPath(c.slug, 1),
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title="Address directory — public crypto address collections | Yellowdex"
+  description="Browse Yellowdex's public collections of labeled crypto addresses. Every collection is a searchable table of addresses, labels, entities, and networks."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={safeJsonLd(jsonLd)} />
+  </Fragment>
+
+  <header class="sticky top-0 z-20 bg-paper/80 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+      <a href="/" class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
+        </div>
+      </a>
+      <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
+        <a href="/#features" class="transition hover:text-ink">Features</a>
+        <a href="/directory/" class="transition hover:text-ink">Directory</a>
+        <a href="/releases/" class="transition hover:text-ink">Release notes</a>
+        <a href="/#faq" class="transition hover:text-ink">FAQ</a>
+        <a
+          href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Install Yellowdex on Chrome"
+          class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          Install on Chrome
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="px-6 py-12 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-muted transition hover:text-ink">
+        <span aria-hidden="true">&larr;</span> Back to Yellowdex
+      </a>
+
+      <div class="mt-8 space-y-3">
+        <p class="pill">Address directory</p>
+        <h1 class="font-display text-4xl font-semibold text-charcoal">Public address collections</h1>
+        <p class="max-w-2xl text-muted">
+          Explore curated, public collections of labeled crypto addresses. Each collection is a
+          browsable table of addresses, human-readable labels, entities, and networks — the same
+          labels the Yellowdex extension shows you as you browse.
+        </p>
+        {collections.length > 0 && (
+          <p class="text-sm text-muted">
+            {fmt.format(collections.length)} public collections · {fmt.format(totalAddresses)} labeled addresses
+          </p>
+        )}
+      </div>
+
+      {collections.length > 0 ? (
+        <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {collections.map((c) => (
+            <li>
+              <a
+                href={collectionPath(c.slug, 1)}
+                class="card flex h-full flex-col gap-2 p-5 transition hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                <span class="font-display text-lg text-ink">{c.name}</span>
+                {c.description && (
+                  <span class="line-clamp-3 text-sm text-muted">{c.description}</span>
+                )}
+                <span class="mt-auto pt-2 text-xs font-medium uppercase tracking-wide text-amber">
+                  {fmt.format(c.addressCount)} addresses
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="card mt-10 p-6">
+          <h2 class="font-display text-xl text-charcoal">Directory unavailable</h2>
+          <p class="mt-2 text-muted">
+            Public collections could not be loaded at build time. Please check back soon.
+          </p>
+        </div>
+      )}
+    </div>
+  </main>
+
+  <footer class="border-t border-charcoal/10 bg-paper/80 px-6 py-10 lg:px-8">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+          <p class="text-sm text-ink-soft">Label every address. Turn chaos into context.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-muted">
+        <a href="/#features" class="hover:text-ink">Features</a>
+        <a href="/directory/" class="hover:text-ink">Directory</a>
+        <a href="/#how-it-works" class="hover:text-ink">How it works</a>
+        <a href="/#faq" class="hover:text-ink">FAQ</a>
+        <a href="/brand-assets/" class="hover:text-ink">Brand Assets</a>
+        <a href="mailto:support@yellowdex.ai" class="hover:text-ink">Contact</a>
+        <a href="/privacy-policy/" class="hover:text-ink">Privacy Policy</a>
+        <a href="/llms.txt" class="hover:text-ink">llms.txt</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>
