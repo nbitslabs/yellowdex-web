@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const specUrl = "https://sync.yellowdex.ai/api/v1/openapi.json";
+---
+
+<BaseLayout
+  title="API Docs - Yellowdex"
+  description="Interactive reference for the Yellowdex Public API — authentication, collections, labels, sync, and sharing endpoints."
+>
+  <main id="main" class="px-6 py-12 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-muted transition hover:text-ink">
+        <span aria-hidden="true">&larr;</span> Back to Yellowdex
+      </a>
+
+      <h1 class="mt-8 font-display text-4xl font-semibold text-charcoal">API Docs</h1>
+      <p class="mt-2 text-sm text-muted">
+        Public and authenticated API for the Yellowdex server, consumed by the browser extension and external
+        integrators.
+      </p>
+      <p class="mt-2 text-sm text-muted">
+        Machine-readable versions: <a class="underline hover:text-ink" href={specUrl}>OpenAPI JSON</a> &middot;
+        <a class="underline hover:text-ink" href="/api-docs.md">Markdown</a>
+      </p>
+
+      <div id="swagger-ui" class="mt-8 rounded-2xl bg-white/70 p-2 shadow-sm sm:p-4"></div>
+    </div>
+  </main>
+
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+  <script is:inline src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script is:inline define:vars={{ specUrl }}>
+    window.addEventListener("DOMContentLoaded", () => {
+      window.ui = SwaggerUIBundle({
+        url: specUrl,
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        presets: [SwaggerUIBundle.presets.apis],
+        defaultModelsExpandDepth: 0,
+      });
+    });
+  </script>
+</BaseLayout>

@@ -43,10 +43,19 @@ Yellowdex floats an overlay beside any Ethereum address you encounter on the web
 Available on the Chrome Web Store: https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha
 
 ${releaseSection}
+## API
+
+Yellowdex exposes a public HTTP API at https://sync.yellowdex.ai/api/v1 for authentication, collections, labels, sync, and sharing. Authenticated endpoints use a JWT bearer token obtained via wallet-signature login (POST /auth/login).
+
+- [API Reference (Markdown)](https://yellowdex.ai/api-docs.md) — full endpoint and model reference for agents
+- [OpenAPI spec (Swagger 2.0 JSON)](https://sync.yellowdex.ai/api/v1/openapi.json)
+- [Interactive API docs](https://yellowdex.ai/api-docs/)
+
 ## Pages
 
 - [Home](https://yellowdex.ai/)
 - [Address Directory](https://yellowdex.ai/directory/) — public collections of labeled crypto addresses
+- [API Docs](https://yellowdex.ai/api-docs/) — [Markdown](https://yellowdex.ai/api-docs.md)
 - [Brand Assets](https://yellowdex.ai/brand-assets/)
 - [Release Notes](https://yellowdex.ai/releases/) — [Markdown](https://yellowdex.ai/releases.md)
 - [Privacy Policy](https://yellowdex.ai/privacy-policy/) — [Markdown](https://yellowdex.ai/privacy-policy.md)
