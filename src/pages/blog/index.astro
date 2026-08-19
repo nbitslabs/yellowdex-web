@@ -35,7 +35,7 @@ const jsonLd = {
   </Fragment>
 
   <header class="sticky top-0 z-20 bg-paper/80 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
       <a href="/" class="flex items-center gap-3">
         <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
         <div>
@@ -43,11 +43,13 @@ const jsonLd = {
           <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
         </div>
       </a>
-      <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
+      <nav aria-label="Primary navigation" class="hidden shrink-0 items-center gap-5 whitespace-nowrap text-sm font-medium text-ink-soft lg:flex">
         <a href="/#features" class="transition hover:text-ink">Features</a>
+        <a href="/api-docs/" class="transition hover:text-ink">API</a>
         <a href="/directory/" class="transition hover:text-ink">Directory</a>
         <a href="/blog/" class="transition hover:text-ink">Blog</a>
         <a href="/releases/" class="transition hover:text-ink">Release notes</a>
+        <a href="/#how-it-works" class="transition hover:text-ink">How it works</a>
         <a href="/#faq" class="transition hover:text-ink">FAQ</a>
         <a
           href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
@@ -63,13 +65,13 @@ const jsonLd = {
   </header>
 
   <main id="main" class="px-6 py-12 lg:px-8">
-    <div class="mx-auto max-w-3xl">
+    <div class="mx-auto max-w-7xl">
       <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-muted transition hover:text-ink">
         <span aria-hidden="true">&larr;</span> Back to Yellowdex
       </a>
 
       <div class="mt-8 space-y-3">
-        <div class="flex items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3">
           <p class="pill">Blog</p>
           <a
             href="/blog/rss.xml"
@@ -115,7 +117,7 @@ const jsonLd = {
   </main>
 
   <footer class="border-t border-charcoal/10 bg-paper/80 px-6 py-10 lg:px-8">
-    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-3">
         <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
         <div>

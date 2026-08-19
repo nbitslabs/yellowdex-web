@@ -21,6 +21,10 @@
   :root {
     color: var(--color-ink);
     background-color: var(--color-paper);
+    /* Always reserve the vertical scrollbar gutter so navigating between a
+       short page (no scrollbar) and a tall one (scrollbar) doesn't shift
+       centered content horizontally. */
+    scrollbar-gutter: stable;
   }
 
   body {
