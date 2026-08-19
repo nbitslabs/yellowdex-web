@@ -1,0 +1,60 @@
+---
+title: "Yellowdex vs. Chainalysis, Arkham, and Nansen: which does what?"
+description: "Chainalysis, Arkham, and Nansen are powerful blockchain intelligence platforms. Yellowdex is address intelligence you can browse and extend with your own labels, right on the page. Here's how they compare."
+pubDate: 2026-08-19
+category: "Comparison"
+readingTime: "6 min read"
+---
+
+import CompareTable from "../../components/CompareTable.astro";
+import InstallCTA from "../../components/InstallCTA.astro";
+
+If you spend any time reading blockchains, you have probably reached for **Chainalysis**, **Arkham**, or **Nansen** — or wished you had. They are excellent tools. Yellowdex overlaps with them more than you might expect, and differs in ways that matter. This post lays out who does what, so you can pick the right one — and often use them together.
+
+The short version: those three are _intelligence platforms_. They ingest chain data, attribute it to entities, and hand you dashboards and investigations built from _their_ view of the world. Yellowdex does its own on-chain attribution too — but it meets you in the page you are already reading, and lets you layer _your_ knowledge on top of the curated data instead of only consuming a vendor's.
+
+## The three intelligence platforms
+
+### Chainalysis — compliance and investigations
+
+Chainalysis is built for exchanges, banks, and government: transaction monitoring, sanctions screening, and forensic investigation tooling. It is the heavyweight of the compliance world, sold as an enterprise platform with vendor-maintained risk datasets. If your job is to file a suspicious-activity report or trace stolen funds across chains, this is that category of tool.
+
+### Arkham — public entity intelligence
+
+Arkham is a public-facing intelligence platform that attributes on-chain activity to named entities and lets anyone browse and research those entities. It leans toward transparency and discovery — putting entity attribution in front of researchers, traders, and the merely curious.
+
+### Nansen — analytics and smart money
+
+Nansen is an on-chain analytics product known for its labeled wallets and "smart money" dashboards. It is aimed at traders and funds who want to see flows, follow notable wallets, and spot trends across protocols. Its strength is aggregation and visualization at scale.
+
+## Where Yellowdex fits
+
+Yellowdex is easy to under-describe as "a Chrome extension that labels addresses." It is that — but the extension sits on top of a real address-intelligence stack. There are three pieces:
+
+### 1. Curated, auto-generated intelligence
+
+Behind the scenes, Yellowdex continuously indexes on-chain activity and attributes addresses on its own. It discovers and labels DEX pools across major protocols (Uniswap, PancakeSwap, Curve, Aerodrome, Pendle, Morpho, Aave, and more) and clusters **centralized-exchange deposit addresses** — Crypto.com, Gemini, Bittrex, Bitvavo, Coinex, Indodax, and others — using on-chain funding heuristics. That work is published openly in the [public address directory](/directory/), across Ethereum and major EVM chains. This is genuine entity attribution — the same category of data Arkham and Nansen are known for.
+
+### 2. Your own labels, layered on top
+
+The extension detects addresses on whatever page you are already looking at and floats labels next to them — on explorers, wallets, dashboards, marketplaces, and forums. Crucially, you are not limited to the vendor's view: you assign your own entities, labels, and color-coded tags, and they render _in context_ right alongside the curated intelligence. Labels are local-first — they live on your device by default, and you choose what to sync across devices and what to share. Group them into collections and share a read-only link so a team works from one source of truth.
+
+### 3. An open API for builders
+
+None of this is locked behind an enterprise sales call. Yellowdex exposes a [public API](/api-docs/) for external integrators — including a public address-lookup endpoint and the collections and networks behind the directory — with API keys and an MCP server so agents and LLM tools can query Yellowdex directly.
+
+Put simply: Yellowdex is address intelligence you can both _browse_ and _extend_. It comes to you in the page you're reading, and it remembers what _you_ figured out.
+
+## Side by side
+
+<CompareTable />
+
+## Which should you use?
+
+- **Need compliance or forensic investigations?** Reach for a platform like Chainalysis. That is a different job than labeling.
+- **Researching who's who on-chain, or following flows?** Arkham and Nansen are built for exactly that kind of discovery and analytics.
+- **Want curated address intelligence _and_ your own labels — in the page you're already on, queryable by API?** That is Yellowdex. It covers similar attribution ground to Arkham and Nansen, then adds the layer that is yours to shape.
+
+In practice these live together. You might spot an entity in Yellowdex's directory, confirm it against a heavier platform, then add your own label so it is recognizable the next time it shows up in a token transfer, a Discord message, or a governance forum. The difference is that Yellowdex's intelligence meets you where you browse — and lets you write your own knowledge back into it.
+
+<InstallCTA />

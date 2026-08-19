@@ -1,0 +1,77 @@
+---
+// Side-by-side comparison table with the Yellowdex column visually featured
+// (sun tint + amber side borders). Data lives here so the MDX post stays prose.
+const rows = [
+  {
+    dimension: "Primary job",
+    yellowdex: "Address intelligence you browse + your own labels, in-page",
+    chainalysis: "Compliance, investigations & law-enforcement tooling",
+    arkham: "Public entity intelligence & on-chain research",
+    nansen: "On-chain analytics & smart-money dashboards",
+  },
+  {
+    dimension: "Where it lives",
+    yellowdex: "Browser overlay on any page, plus a public directory & API",
+    chainalysis: "Dedicated investigation & monitoring platform",
+    arkham: "Web app & entity explorer",
+    nansen: "Web app & dashboards",
+  },
+  {
+    dimension: "Where labels come from",
+    yellowdex: "Auto-generated on-chain attribution + your own labels",
+    chainalysis: "Vendor-maintained heuristics & datasets",
+    arkham: "Platform-attributed entities + community intel",
+    nansen: "Vendor-maintained wallet labels",
+  },
+  {
+    dimension: "Bring your own labels?",
+    yellowdex: "Yes — layered in-page over the curated intelligence",
+    chainalysis: "Not the core workflow",
+    arkham: "No — platform-owned entities",
+    nansen: "No — platform-owned labels",
+  },
+  {
+    dimension: "Data model",
+    yellowdex: "Local-first personal labels; curated intel is public & open",
+    chainalysis: "Centralized enterprise datasets",
+    arkham: "Centralized platform database",
+    nansen: "Centralized platform database",
+  },
+];
+---
+
+<div class="not-prose my-8">
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[42rem] border-collapse text-sm">
+      <thead>
+        <tr class="border-b border-charcoal/10 text-left align-bottom">
+          <th class="py-3 pr-4 font-semibold text-ink"></th>
+          <th class="border-x border-t border-amber/40 bg-sun/20 px-4 py-3 font-semibold text-amber">Yellowdex</th>
+          <th class="py-3 pl-6 pr-4 font-semibold text-ink">Chainalysis</th>
+          <th class="py-3 pr-4 font-semibold text-ink">Arkham</th>
+          <th class="py-3 pr-4 font-semibold text-ink">Nansen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr class="border-b border-charcoal/5 align-top">
+            <th scope="row" class="whitespace-nowrap py-3 pr-6 text-left font-semibold text-ink">{row.dimension}</th>
+            <td
+              class:list={[
+                "border-x border-amber/40 bg-sun/10 px-4 py-3 font-medium text-ink",
+                i === rows.length - 1 && "border-b",
+              ]}
+            >{row.yellowdex}</td>
+            <td class="py-3 pl-6 pr-4 text-muted">{row.chainalysis}</td>
+            <td class="py-3 pr-4 text-muted">{row.arkham}</td>
+            <td class="py-3 pr-4 text-muted">{row.nansen}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="mt-4 text-sm text-muted">
+    This table maps what each tool is built for. Product details on the platforms change over time;
+    do check their sites for latest details.
+  </p>
+</div>
