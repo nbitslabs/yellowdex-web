@@ -47,6 +47,8 @@ The blog uses an Astro **content collection** (`@astrojs/mdx`). Posts are MDX fi
 
 The listing (`src/pages/blog/index.astro`), the dynamic `/blog/sitemap.xml` (referenced from `robots.txt`), and the Blog section of `src/pages/llms.txt.ts` **all derive from the collection**, so adding a post is self-contained: drop a valid `.mdx` file in `src/content/blog/` — no edits to `public/sitemap.xml`, the listing, or llms.txt required. Each post emits `BlogPosting` + `BreadcrumbList` JSON-LD; the listing emits `Blog` JSON-LD. Nav/footer chrome is still duplicated across pages (see Multi-surface sync).
 
+**OG images** are generated at build time by `astro-og-canvas` (CanvasKit + the local `public/fonts/*.ttf` — `canvaskit-wasm` must be a direct dependency for pnpm). Shared Yellowdex-branded styling lives in `src/lib/ogImage.ts`. `src/pages/blog/og/[...slug].png.ts` emits one `/blog/og/<slug>.png` per post (also collection-driven — new posts get an image with no extra work); `src/pages/blog/og.png.ts` is the single listing image at `/blog/og.png`. A post can still override its image with an `ogImage` frontmatter value. These `.png` endpoints are build artifacts, not content pages, so they are intentionally absent from `public/sitemap.xml` and llms.txt.
+
 ### Styling
 
 Tailwind CSS v4 with custom theme in `global.css`:
