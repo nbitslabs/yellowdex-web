@@ -41,6 +41,12 @@ Release content is fetched at build time from `nbitslabs/yellowdex-ext` by `src/
 
 The `/directory` pages are projected at build time from the Yellowdex public API by `src/lib/getDirectory.ts` (`getStaticPaths` in the route files). Each public collection surfaces at most 500 addresses (the API page cap), paginated 100 per page. Fetch failures return `[]` and do not fail the build — the directory index then renders an empty state and no per-collection pages are generated. Because the page set is data-driven, `/directory/sitemap.xml` is generated dynamically (and referenced from `robots.txt`) rather than hand-maintained in `public/sitemap.xml`.
 
+### Blog
+
+The blog uses an Astro **content collection** (`@astrojs/mdx`). Posts are MDX files in `src/content/blog/*.mdx` with frontmatter validated by the schema in `src/content.config.ts` (title, description, pubDate, category, readingTime, optional ogImage, draft). The file basename is the URL slug. Prose is authored in Markdown and rendered through `src/pages/blog/[...slug].astro` inside a Tailwind Typography (`prose`) wrapper; the styled comparison table and install CTA are components (`src/components/CompareTable.astro`, `InstallCTA.astro`) imported directly into the MDX. `src/lib/blog.ts` centralizes collection access (`getPublishedPosts` excludes drafts, sorts newest-first) and URL/date helpers.
+
+The listing (`src/pages/blog/index.astro`), the dynamic `/blog/sitemap.xml` (referenced from `robots.txt`), and the Blog section of `src/pages/llms.txt.ts` **all derive from the collection**, so adding a post is self-contained: drop a valid `.mdx` file in `src/content/blog/` — no edits to `public/sitemap.xml`, the listing, or llms.txt required. Each post emits `BlogPosting` + `BreadcrumbList` JSON-LD; the listing emits `Blog` JSON-LD. Nav/footer chrome is still duplicated across pages (see Multi-surface sync).
+
 ### Styling
 
 Tailwind CSS v4 with custom theme in `global.css`:

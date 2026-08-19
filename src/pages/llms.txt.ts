@@ -1,8 +1,14 @@
 import type { APIRoute } from "astro";
 import { getAllReleases } from "../lib/getLatestRelease";
+import { getPublishedPosts, postPath } from "../lib/blog";
 
 export const GET: APIRoute = async () => {
   const releases = await getAllReleases();
+  const posts = await getPublishedPosts();
+
+  const blogPostLinks = posts
+    .map((p) => `  - [${p.data.title}](https://yellowdex.ai${postPath(p)})`)
+    .join("\n");
 
   const releaseSection = releases.length > 0
     ? `## Releases
@@ -54,6 +60,8 @@ Yellowdex exposes a public HTTP API at https://sync.yellowdex.ai/api/v1 for auth
 ## Pages
 
 - [Home](https://yellowdex.ai/)
+- [Blog](https://yellowdex.ai/blog/) — notes on address labeling and on-chain context
+${blogPostLinks}
 - [Address Directory](https://yellowdex.ai/directory/) — public collections of labeled crypto addresses
 - [API Docs](https://yellowdex.ai/api-docs/) — [Markdown](https://yellowdex.ai/api-docs.md)
 - [Brand Assets](https://yellowdex.ai/brand-assets/)

@@ -1,0 +1,32 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+}
+const {
+  heading = "See the intelligence for yourself",
+  body = "Install Yellowdex to get curated address intelligence in the page you're already on — then layer on your own labels. Free, local-first, and shareable with your team.",
+} = Astro.props;
+---
+
+<div class="not-prose my-10 rounded-3xl border border-charcoal/10 bg-charcoal p-8 text-sun shadow-xl">
+  <h2 class="font-display text-2xl text-white">{heading}</h2>
+  <p class="mt-2 text-sun/80">{body}</p>
+  <div class="mt-5 flex flex-wrap gap-3">
+    <a
+      href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Install Yellowdex on Chrome"
+      class="inline-flex items-center justify-center gap-2 rounded-full bg-sun px-6 py-3 text-base font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
+    >
+      Install on Chrome <span aria-hidden="true">↗</span>
+    </a>
+    <a
+      href="/directory/"
+      class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-base font-semibold text-sun transition hover:border-white/40"
+    >
+      Browse the directory
+    </a>
+  </div>
+</div>
