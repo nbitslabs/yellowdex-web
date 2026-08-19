@@ -1,0 +1,126 @@
+---
+// Shared site header: primary navigation for every page.
+// `home` renders the local-anchor variant used on the landing page (the logo
+// is not a link, and section links stay in-page); every other page routes
+// those hash links back to the home page with a leading "/".
+interface Props {
+  home?: boolean;
+}
+
+const { home = false } = Astro.props;
+const prefix = home ? "" : "/";
+
+const links = [
+  { href: `${prefix}#features`, label: "Features" },
+  { href: "/api-docs/", label: "API" },
+  { href: "/directory/", label: "Directory" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/releases/", label: "Release notes" },
+  { href: `${prefix}#how-it-works`, label: "How it works" },
+  { href: `${prefix}#faq`, label: "FAQ" },
+];
+
+const INSTALL_HREF =
+  "https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha";
+
+// The logo is a home link on inner pages, and a plain wrapper on the home page.
+const Brand = home ? "div" : "a";
+---
+
+<header class="sticky top-0 z-20 bg-paper/80 px-6 backdrop-blur lg:px-8">
+  <div class="mx-auto flex max-w-7xl items-center justify-between py-4">
+    <Brand href={home ? undefined : "/"} class="flex items-center gap-3">
+      <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
+        <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
+      </div>
+    </Brand>
+
+    <!-- Desktop navigation -->
+    <nav
+      aria-label="Primary navigation"
+      class="hidden shrink-0 items-center gap-5 whitespace-nowrap text-sm font-medium text-ink-soft lg:flex"
+    >
+      {links.map((l) => <a href={l.href} class="transition hover:text-ink">{l.label}</a>)}
+      <a
+        href={INSTALL_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Install Yellowdex on Chrome"
+        class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
+      >
+        Install on Chrome
+      </a>
+    </nav>
+
+    <!-- Mobile navigation: no-JS disclosure, closed by the script below on navigate/outside-click -->
+    <details class="site-menu lg:hidden">
+      <summary
+        class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-ink transition hover:bg-panel"
+        aria-label="Toggle navigation menu"
+      >
+        <svg class="site-menu-bars h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+        <svg class="site-menu-x hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+        </svg>
+      </summary>
+
+      <div class="absolute inset-x-0 top-full border-t border-charcoal/10 bg-paper shadow-lg">
+        <nav aria-label="Mobile navigation" class="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
+          {links.map((l) => (
+            <a href={l.href} class="rounded-lg px-3 py-2.5 text-base font-medium text-ink-soft transition hover:bg-panel hover:text-ink">
+              {l.label}
+            </a>
+          ))}
+          <a
+            href={INSTALL_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-2 rounded-full bg-charcoal px-4 py-3 text-center text-sm font-semibold text-sun shadow-lg shadow-amber/30"
+          >
+            Install on Chrome
+          </a>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  /* Hide the native disclosure triangle on the hamburger. */
+  .site-menu > summary {
+    list-style: none;
+  }
+  .site-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+  /* Swap hamburger <-> close icon based on open state. */
+  .site-menu[open] .site-menu-bars {
+    display: none;
+  }
+  .site-menu[open] .site-menu-x {
+    display: block;
+  }
+</style>
+
+<script>
+  // The <details> handles open/close natively; JS only closes it when the user
+  // navigates (in-page anchors on the home page wouldn't otherwise close it) or
+  // taps outside the menu.
+  document.querySelectorAll<HTMLDetailsElement>("details.site-menu").forEach((menu) => {
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => menu.removeAttribute("open"));
+    });
+    document.addEventListener("click", (event) => {
+      if (menu.hasAttribute("open") && !menu.contains(event.target as Node)) {
+        menu.removeAttribute("open");
+      }
+    });
+  });
+</script>
