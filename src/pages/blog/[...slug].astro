@@ -20,6 +20,10 @@ const { title, description, category, readingTime, pubDate, ogImage } = post.dat
 const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).toString() : path);
 const url = abs(postPath(post));
 
+// Per-post social image is generated at build time by
+// src/pages/blog/og/[...slug].png.ts; a post may override it via frontmatter.
+const socialImage = ogImage ?? `/blog/og/${post.id}.png`;
+
 const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -48,7 +52,7 @@ const breadcrumbLd = {
 };
 ---
 
-<BaseLayout title={`${title} | Yellowdex`} description={description} ogImage={ogImage ?? "/og-yellowdex.png"}>
+<BaseLayout title={`${title} | Yellowdex`} description={description} ogImage={socialImage}>
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title="The Yellowdex blog" href="/blog/rss.xml" />
     <meta property="article:published_time" content={isoDate(pubDate)} />

@@ -9,18 +9,28 @@ const SITE = "https://yellowdex.ai";
 // .mdx post updates the feed automatically.
 export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
+  const site = context.site?.toString().replace(/\/$/, "") ?? SITE;
 
   return rss({
     title: "The Yellowdex blog",
     description:
       "Notes on labeling crypto addresses, on-chain context, and how Yellowdex fits alongside blockchain intelligence tools.",
     site: context.site ?? SITE,
-    items: posts.map((post) => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: post.data.pubDate,
-      link: postPath(post),
-      categories: [post.data.category],
-    })),
+    // Media RSS namespace so feed readers can surface each post's build-time
+    // OG image (src/pages/blog/og/[...slug].png.ts).
+    xmlns: { media: "http://search.yahoo.com/mrss/" },
+    items: posts.map((post) => {
+      const image = `${site}/blog/og/${post.id}.png`;
+      return {
+        title: post.data.title,
+        description: post.data.description,
+        pubDate: post.data.pubDate,
+        link: postPath(post),
+        categories: [post.data.category],
+        customData:
+          `<media:content medium="image" type="image/png" url="${image}" />` +
+          `<media:thumbnail url="${image}" />`,
+      };
+    }),
   });
 }
