@@ -27,6 +27,12 @@
     scrollbar-gutter: stable;
   }
 
+  /* Sticky footer: the layout wraps every page in a min-h-screen flex column,
+     so growing the main region pushes the footer to the bottom on short pages. */
+  #main {
+    flex: 1 0 auto;
+  }
+
   body {
     font-family: var(--font-sans);
     background: radial-gradient(circle at 20% 20%, rgba(244, 196, 81, 0.18), transparent 35%),
