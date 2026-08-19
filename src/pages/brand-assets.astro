@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 
 const assets = [
   {
@@ -21,35 +22,10 @@ const assets = [
   title="Brand Assets - Yellowdex"
   description="Download official Yellowdex logo assets and review basic brand usage guidelines."
 >
-  <header class="sticky top-0 z-20 bg-paper/80 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-      <a href="/" class="flex items-center gap-3">
-        <img src="/logo-yellowdex.svg" alt="Yellowdex logo" class="h-10 w-10" />
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Yellowdex</p>
-          <p class="font-display text-lg text-ink">Label every address. Turn chaos into context.</p>
-        </div>
-      </a>
-      <nav aria-label="Primary navigation" class="hidden items-center gap-6 text-sm font-medium text-ink-soft lg:flex">
-        <a href="/#features" class="transition hover:text-ink">Features</a>
-        <a href="/releases/" class="transition hover:text-ink">Release notes</a>
-        <a href="/#how-it-works" class="transition hover:text-ink">How it works</a>
-        <a href="/#faq" class="transition hover:text-ink">FAQ</a>
-        <a
-          href="https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Install Yellowdex on Chrome"
-          class="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-sun shadow-lg shadow-amber/30 transition hover:-translate-y-0.5 hover:shadow-xl"
-        >
-          Install on Chrome
-        </a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader />
 
   <main id="main" class="px-6 py-12 lg:px-8">
-    <div class="mx-auto max-w-4xl">
+    <div class="mx-auto max-w-7xl">
       <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-muted transition hover:text-ink">
         <span aria-hidden="true">&larr;</span> Back to Yellowdex
       </a>
@@ -144,7 +120,7 @@ const assets = [
   </main>
 
   <footer class="border-t border-charcoal/10 bg-paper/80 px-6 py-10 lg:px-8">
-    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-3">
         <img src="/logo-yellowdex.svg" alt="Yellowdex" class="h-10 w-10" />
         <div>
@@ -153,10 +129,10 @@ const assets = [
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-4 text-sm text-muted">
-        <a href="/#features" class="hover:text-ink">Features</a>
-        <a href="/#how-it-works" class="hover:text-ink">How it works</a>
-        <a href="/#faq" class="hover:text-ink">FAQ</a>
-        <a href="/brand-assets/" class="hover:text-ink">Brand Assets</a>
+        <a href="/#features" class="hidden hover:text-ink lg:inline">Features</a>
+        <a href="/#how-it-works" class="hidden hover:text-ink lg:inline">How it works</a>
+        <a href="/#faq" class="hidden hover:text-ink lg:inline">FAQ</a>
+        <a href="/brand-assets/" class="hidden hover:text-ink lg:inline">Brand Assets</a>
         <a href="mailto:support@yellowdex.ai" class="hover:text-ink">Contact</a>
         <a href="/privacy-policy/" class="hover:text-ink">Privacy Policy</a>
         <a href="/llms.txt" class="hover:text-ink">llms.txt</a>

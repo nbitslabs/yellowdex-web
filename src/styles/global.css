@@ -21,6 +21,16 @@
   :root {
     color: var(--color-ink);
     background-color: var(--color-paper);
+    /* Always reserve the vertical scrollbar gutter so navigating between a
+       short page (no scrollbar) and a tall one (scrollbar) doesn't shift
+       centered content horizontally. */
+    scrollbar-gutter: stable;
+  }
+
+  /* Sticky footer: the layout wraps every page in a min-h-screen flex column,
+     so growing the main region pushes the footer to the bottom on short pages. */
+  #main {
+    flex: 1 0 auto;
   }
 
   body {
