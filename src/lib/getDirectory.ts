@@ -51,13 +51,71 @@ const headers: Record<string, string> = {
   "User-Agent": "yellowdex-web",
 };
 
+// Cap on address requests in flight at once. Firing all collections'
+// requests concurrently overwhelms the public API — under that load it
+// returns 502 at its gateway timeout, those collections fetch no addresses,
+// and getDirectory() drops them (or, if enough fail at once, renders the
+// whole directory as "unavailable"). A small pool keeps each request fast.
+const FETCH_CONCURRENCY = 4;
+// Per-request timeout so a single hung request can't stall the build. Undici's
+// default is 300s; with retries that is minutes of dead time per collection.
+const FETCH_TIMEOUT_MS = 20_000;
+// Retries for transient failures (5xx / network / timeout) before giving up.
+const FETCH_RETRIES = 2;
+
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// Fetch with a timeout and bounded retries on transient failures. A 5xx
+// response, a network error, or a timeout is retried with linear backoff;
+// a 4xx (client) response is returned as-is (retrying won't help). Returns
+// null only when every attempt failed.
+async function fetchWithRetry(url: string): Promise<Response | null> {
+  for (let attempt = 0; attempt <= FETCH_RETRIES; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers,
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (res.ok || res.status < 500) return res;
+      // 5xx — fall through to retry.
+    } catch {
+      // Network error or timeout — fall through to retry.
+    }
+    if (attempt < FETCH_RETRIES) await sleep(500 * (attempt + 1));
+  }
+  return null;
+}
+
+// Map over items with a bounded number of workers, preserving input order.
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T, index: number) => Promise<R>,
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (true) {
+      const index = next++;
+      if (index >= items.length) return;
+      results[index] = await fn(items[index], index);
+    }
+  };
+  const workers = Array.from(
+    { length: Math.min(limit, items.length) },
+    worker,
+  );
+  await Promise.all(workers);
+  return results;
+}
+
 async function fetchPublicCollections(): Promise<DirectoryCollection[]> {
   try {
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `${API_BASE}/public/owners/${encodeURIComponent(OWNER_HANDLE)}/collections`,
-      { headers },
     );
-    if (!res.ok) return [];
+    if (!res || !res.ok) return [];
 
     const data = await res.json();
     if (!Array.isArray(data)) return [];
@@ -82,11 +140,10 @@ async function fetchPublicCollections(): Promise<DirectoryCollection[]> {
 
 async function fetchCollectionAddresses(id: string): Promise<DirectoryAddress[]> {
   try {
-    const res = await fetch(
+    const res = await fetchWithRetry(
       `${API_BASE}/collections/${encodeURIComponent(id)}/addresses/page?limit=${ADDRESSES_PER_COLLECTION}`,
-      { headers },
     );
-    if (!res.ok) return [];
+    if (!res || !res.ok) return [];
 
     const data = await res.json();
     const addresses = Array.isArray(data?.addresses) ? data.addresses : [];
@@ -121,15 +178,29 @@ export function getDirectory(): Promise<DirectoryEntry[]> {
   if (!cache) {
     cache = (async () => {
       const collections = await fetchPublicCollections();
-      const entries = await Promise.all(
-        collections.map(async (collection) => {
+      // Bounded concurrency: fetching all collections' addresses at once
+      // overwhelms the API (see FETCH_CONCURRENCY). Order is preserved.
+      const entries = await mapWithConcurrency(
+        collections,
+        FETCH_CONCURRENCY,
+        async (collection) => {
           const addresses = await fetchCollectionAddresses(collection.id);
           const totalPages = Math.max(1, Math.ceil(addresses.length / PAGE_SIZE));
           return { collection, addresses, totalPages } satisfies DirectoryEntry;
-        }),
+        },
       );
       // Drop collections that returned no visible addresses — an empty table
-      // is not worth an indexable page.
+      // is not worth an indexable page. Warn so a build that silently loses a
+      // collection to a fetch failure is visible in the logs (rather than the
+      // collection just vanishing from the directory).
+      const dropped = entries
+        .filter((e) => e.addresses.length === 0)
+        .map((e) => e.collection.slug);
+      if (dropped.length > 0) {
+        console.warn(
+          `getDirectory: ${dropped.length} collection(s) returned no addresses and were dropped: ${dropped.join(", ")}`,
+        );
+      }
       return entries.filter((e) => e.addresses.length > 0);
     })();
   }
