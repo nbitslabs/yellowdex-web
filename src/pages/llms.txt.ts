@@ -24,7 +24,7 @@ No releases published yet.
 
   const content = `# Yellowdex
 
-> Yellowdex is a Chrome extension that labels every Ethereum address you see while browsing — on explorers, wallets, dashboards, marketplaces, and forums. Save labels to collections and share them with your team.
+> Yellowdex builds crypto forensics tools. The Yellowdex Chrome extension labels every Ethereum address you see while browsing — on explorers, wallets, dashboards, marketplaces, and forums — and saves labels to collections you can share with your team. Tracer, Yellowdex's read-only on-chain assistant, follows the money on-chain.
 
 ## What Yellowdex does
 
@@ -48,6 +48,10 @@ Yellowdex floats an overlay beside any Ethereum address you encounter on the web
 
 Available on the Chrome Web Store: https://chromewebstore.google.com/detail/lapdeiobkgdfjfcdddjbmmhooicppmha
 
+## Tracer
+
+Tracer (https://tracer.yellowdex.ai) is Yellowdex's read-only on-chain assistant. Ask it about an address, transaction hash, or ENS name and it traces funds, decodes transactions, and identifies addresses, checking Yellowdex public collections for known labels. Recorded hops are drawn as a fund-flow diagram, and any conversation can be shared as a read-only link. Sign in with a wallet or email. Tracer never signs or sends transactions.
+
 ${releaseSection}
 ## API
 
@@ -60,6 +64,7 @@ Yellowdex exposes a public HTTP API at https://sync.yellowdex.ai/api/v1 for auth
 ## Pages
 
 - [Home](https://yellowdex.ai/)
+- [Tracer](https://tracer.yellowdex.ai) — read-only on-chain assistant
 - [Blog](https://yellowdex.ai/blog/) — notes on address labeling and on-chain context
 ${blogPostLinks}
 - [Address Directory](https://yellowdex.ai/directory/) — public collections of labeled crypto addresses
