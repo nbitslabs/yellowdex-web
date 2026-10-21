@@ -41,6 +41,27 @@ const features = [
   },
 ];
 
+const tracerCapabilities = [
+  {
+    title: "Trace funds",
+    body: "Follow money hop by hop from any address or transaction, and see where it went.",
+  },
+  {
+    title: "Decode transactions",
+    body: "Paste a tx hash and get a plain-language account of what it did.",
+  },
+  {
+    title: "Identify addresses",
+    body: "Ask who is behind an address. Tracer checks Yellowdex public collections for known labels.",
+  },
+  {
+    title: "Map the fund flow",
+    body: "Every hop Tracer records lands on a fund-flow diagram you can open at any point in the chat.",
+  },
+];
+
+const TRACER_HREF = "https://tracer.yellowdex.ai";
+
 const faqs = [
   {
     q: "Where do my labels live?",
@@ -55,6 +76,10 @@ const faqs = [
     a: "Yes. Create a shared collection, generate a read-only link, and keep a single source of truth for labels.",
   },
   {
+    q: "How is Tracer different from the extension?",
+    a: "The extension labels addresses as you browse. Tracer is a read-only on-chain assistant you chat with to trace funds, decode transactions, and identify addresses.",
+  },
+  {
     q: "What about other browsers?",
     a: "Chrome first. Firefox and Edge are on the roadmap—join the list to be notified.",
   },
@@ -63,7 +88,9 @@ const faqs = [
 const latestRelease = await getLatestRelease();
 ---
 
-<BaseLayout>
+<BaseLayout
+  description="Yellowdex builds crypto forensics tools. The Chrome extension labels every address you see as you browse; Tracer follows the money on-chain."
+>
   <SiteHeader home />
 
   <main id="main" class="relative isolate">
@@ -225,6 +252,59 @@ const latestRelease = await getLatestRelease();
       </div>
     </section>
 
+    <section class="px-6 pb-16 lg:px-8" id="tracer">
+      <div class="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-charcoal/10 bg-charcoal text-sun shadow-2xl shadow-amber/30">
+        <div class="grid gap-10 p-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:p-10">
+          <div class="space-y-5">
+            <div class="inline-flex items-center gap-3 rounded-full bg-sun/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-amber">
+              <img src="/logo-tracer.png" alt="" class="h-6 w-6" width="120" height="120" />
+              Yellowdex Tracer
+            </div>
+            <h2 class="font-display text-3xl text-white sm:text-4xl">Follow the money on-chain.</h2>
+            <p class="max-w-xl text-sun/80">
+              Tracer is Yellowdex's read-only on-chain assistant. Ask it about an address, a transaction hash, or an ENS name, and
+              it traces funds, decodes transactions, and identifies who is on the other side.
+            </p>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href={TRACER_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Yellowdex Tracer"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-sun px-6 py-3 text-base font-semibold text-charcoal shadow-xl shadow-amber/40 transition hover:-translate-y-0.5 hover:shadow-2xl"
+              >
+                Open Tracer
+                <span aria-hidden="true">↗</span>
+              </a>
+              <p class="text-sm text-sun/60">Sign in with a wallet or email.</p>
+            </div>
+            <ul class="space-y-2 text-sm text-sun/70">
+              <li class="flex items-start gap-2">
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald"></span>
+                Read-only: Tracer looks things up, it never signs or sends transactions.
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-emerald"></span>
+                Share any investigation as a read-only link.
+              </li>
+            </ul>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            {tracerCapabilities.map((item) => (
+              <div class="h-full rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-display text-lg text-white">{item.title}</h3>
+                  <div class="h-2 w-8 rounded-full bg-amber"></div>
+                </div>
+                <p class="mt-2 text-sm text-sun/70">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="px-6 pb-16 lg:px-8" id="release">
       <div class="mx-auto max-w-7xl space-y-8">
         <div class="space-y-3">
@@ -348,6 +428,7 @@ const latestRelease = await getLatestRelease();
       </div>
       <div class="flex flex-wrap items-center gap-4 text-sm text-muted">
         <a href="#features" class="hidden hover:text-ink lg:inline">Features</a>
+        <a href="#tracer" class="hidden hover:text-ink lg:inline">Tracer</a>
         <a href="/directory/" class="hidden hover:text-ink lg:inline">Directory</a>
         <a href="/blog/" class="hidden hover:text-ink lg:inline">Blog</a>
         <a href="#how-it-works" class="hidden hover:text-ink lg:inline">How it works</a>
